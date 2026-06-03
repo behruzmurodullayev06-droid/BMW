@@ -1,0 +1,4171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CineMax - Premium Movie Streaming Platform. Watch the latest movies and TV shows in 4K.">
+<title>CineMax — Premium Cinema Streaming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES & RESET
+═══════════════════════════════════════════════ */
+:root {
+  --c-bg: #080810;
+  --c-bg2: #0e0e1a;
+  --c-bg3: #14141f;
+  --c-surface: #1a1a2e;
+  --c-surface2: #1f1f35;
+  --c-border: rgba(255,255,255,0.07);
+  --c-border2: rgba(255,255,255,0.13);
+  --c-text: #f0eff8;
+  --c-text2: #a09ec0;
+  --c-text3: #6b69a0;
+  --c-gold: #e8b84b;
+  --c-gold2: #f5d27a;
+  --c-red: #e84b6e;
+  --c-red2: #ff6b8a;
+  --c-blue: #4b8be8;
+  --c-green: #4be8a0;
+  --c-purple: #9b6ee8;
+  --c-accent: #e84b6e;
+  --c-accent2: #ff6b8a;
+  --nav-h: 72px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.6);
+  --shadow-hover: 0 16px 48px rgba(0,0,0,0.8);
+  --trans: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+[data-theme="light"] {
+  --c-bg: #f4f3f8;
+  --c-bg2: #eceaf5;
+  --c-bg3: #e4e2f0;
+  --c-surface: #ffffff;
+  --c-surface2: #f8f7fc;
+  --c-border: rgba(0,0,0,0.08);
+  --c-border2: rgba(0,0,0,0.15);
+  --c-text: #1a1830;
+  --c-text2: #4a4870;
+  --c-text3: #8886a8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--c-bg);
+  color: var(--c-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+*:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--c-bg2); }
+::-webkit-scrollbar-thumb { background: var(--c-surface2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-accent); }
+
+/* ═══════════════════════════════════════════════
+   UTILITY CLASSES
+═══════════════════════════════════════════════ */
+.hidden { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: 2px;
+  color: var(--c-text);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c-border2), transparent);
+}
+.section-title .accent { color: var(--c-accent); }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.badge-gold { background: rgba(232,184,75,0.15); color: var(--c-gold); border: 1px solid rgba(232,184,75,0.3); }
+.badge-red { background: rgba(232,75,110,0.15); color: var(--c-red2); border: 1px solid rgba(232,75,110,0.3); }
+.badge-blue { background: rgba(75,139,232,0.15); color: #7ab0f5; border: 1px solid rgba(75,139,232,0.3); }
+.badge-green { background: rgba(75,232,160,0.15); color: var(--c-green); border: 1px solid rgba(75,232,160,0.3); }
+.badge-purple { background: rgba(155,110,232,0.15); color: #b890f5; border: 1px solid rgba(155,110,232,0.3); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--r-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: var(--trans);
+  letter-spacing: 0.3px;
+}
+.btn-primary {
+  background: var(--c-accent);
+  color: white;
+  box-shadow: 0 4px 20px rgba(232,75,110,0.4);
+}
+.btn-primary:hover {
+  background: var(--c-accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232,75,110,0.5);
+}
+.btn-secondary {
+  background: rgba(255,255,255,0.1);
+  color: var(--c-text);
+  border: 1px solid var(--c-border2);
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  color: var(--c-text2);
+  padding: 8px 16px;
+}
+.btn-ghost:hover { color: var(--c-text); background: var(--c-surface); border-radius: var(--r-sm); }
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--trans);
+}
+
+/* ═══════════════════════════════════════════════
+   PAGES SYSTEM
+═══════════════════════════════════════════════ */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  transition: var(--trans);
+}
+#nav.scrolled {
+  background: rgba(8,8,16,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--c-border);
+}
+.nav-inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.nav-logo span:first-child { color: var(--c-text); }
+.nav-logo span.logo-accent { color: var(--c-accent); }
+.nav-logo .logo-dot { width: 8px; height: 8px; background: var(--c-accent); border-radius: 50%; margin-bottom: 4px; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+.nav-link {
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--c-text2);
+  transition: var(--trans);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-link:hover, .nav-link.active { color: var(--c-text); background: rgba(255,255,255,0.07); }
+.nav-link.active { color: var(--c-accent); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.search-bar-nav {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--c-border);
+  border-radius: 100px;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 220px;
+  transition: var(--trans);
+}
+.search-bar-nav:focus-within {
+  border-color: var(--c-accent);
+  background: rgba(232,75,110,0.05);
+  width: 280px;
+}
+.search-bar-nav input {
+  background: none;
+  border: none;
+  color: var(--c-text);
+  font-size: 0.875rem;
+  width: 100%;
+}
+.search-bar-nav input::placeholder { color: var(--c-text3); }
+.search-bar-nav svg { color: var(--c-text3); flex-shrink: 0; }
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--c-border);
+  color: var(--c-text2);
+  transition: var(--trans);
+}
+.theme-toggle:hover { color: var(--c-text); background: rgba(255,255,255,0.12); }
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-accent), var(--c-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: var(--trans);
+  position: relative;
+}
+.user-avatar:hover { border-color: var(--c-accent); }
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border2);
+  border-radius: var(--r-lg);
+  padding: 8px;
+  min-width: 200px;
+  display: none;
+  box-shadow: var(--shadow-card);
+  z-index: 100;
+}
+.user-dropdown.open { display: block; animation: fadeSlideDown 0.2s ease; }
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  color: var(--c-text2);
+  cursor: pointer;
+  transition: var(--trans);
+}
+.dropdown-item:hover { background: var(--c-surface2); color: var(--c-text); }
+.dropdown-item.danger:hover { color: var(--c-red2); }
+.dropdown-divider { height: 1px; background: var(--c-border); margin: 6px 0; }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: var(--trans);
+}
+
+/* ═══════════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 95vh;
+  min-height: 600px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero-video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+.hero-video-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,16,0.3) 0%,
+    rgba(8,8,16,0.1) 40%,
+    rgba(8,8,16,0.7) 75%,
+    rgba(8,8,16,0.98) 100%
+  );
+  z-index: 1;
+}
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 0 5rem;
+  width: 100%;
+}
+.hero-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: 4px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-bottom: 1.25rem;
+  max-width: 800px;
+}
+.hero-title .line2 { color: var(--c-accent); }
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--c-text2);
+  max-width: 520px;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: left; }
+.hero-stat .num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: var(--c-text);
+}
+.hero-stat .num .unit { color: var(--c-accent); font-size: 1.4rem; }
+.hero-stat .label { font-size: 0.8rem; color: var(--c-text3); text-transform: uppercase; letter-spacing: 1px; }
+.hero-indicators {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: var(--trans);
+}
+.hero-dot.active { background: var(--c-accent); width: 24px; border-radius: 4px; }
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--c-text3);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: bounce 2s ease infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ═══════════════════════════════════════════════
+   MOVIE CARDS
+═══════════════════════════════════════════════ */
+.movies-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.movies-row::-webkit-scrollbar { height: 4px; }
+.movie-card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--c-surface);
+  cursor: pointer;
+  transition: var(--trans);
+  position: relative;
+
+}
+.movie-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-hover);
+  z-index: 10;
+}
+.movie-card-poster {
+  aspect-ratio: 2/3;
+  width: 100%;
+  object-fit: cover;
+  background: var(--c-surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--c-text3);
+  position: relative;
+  overflow: hidden;
+}
+.movie-card-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.movie-card:hover .movie-card-poster-img { transform: scale(1.08); }
+.movie-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,16,0.95) 0%, rgba(8,8,16,0.4) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  gap: 8px;
+}
+.movie-card:hover .movie-card-overlay { opacity: 1; }
+.movie-card-overlay-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+.movie-card-overlay-btns {
+  display: flex;
+  gap: 6px;
+}
+.card-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--trans);
+  font-size: 0.8rem;
+}
+.card-btn-play {
+  background: var(--c-accent);
+  color: white;
+}
+.card-btn-play:hover { background: var(--c-accent2); transform: scale(1.1); }
+.card-btn-add {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.card-btn-add:hover { background: rgba(255,255,255,0.25); }
+.movie-card-info {
+  padding: 0.75rem 0.875rem;
+}
+.movie-card-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.movie-card-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--c-text3);
+}
+.movie-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--c-gold);
+  font-weight: 600;
+}
+.movie-card-new {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+}
+.movie-card-quality {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  background: rgba(8,8,16,0.8);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--c-gold2);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+}
+
+/* Featured (wide) card */
+.movie-card-featured {
+  flex: 0 0 340px;
+  height: 220px;
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--trans);
+}
+.movie-card-featured:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.movie-card-featured-bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+.movie-card-featured:hover .movie-card-featured-bg { transform: scale(1.05); }
+.movie-card-featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(8,8,16,0.95) 0%, rgba(8,8,16,0.4) 60%, transparent 100%);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.movie-card-featured-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.movie-card-featured-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--c-text2);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════════ */
+.section { padding: 3rem 0; }
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+.view-all {
+  font-size: 0.85rem;
+  color: var(--c-accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  transition: var(--trans);
+}
+.view-all:hover { color: var(--c-accent2); gap: 8px; }
+.section-header .section-title { margin-bottom: 0; }
+
+/* Slider nav */
+.slider-wrap { position: relative; }
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(8,8,16,0.85);
+  border: 1px solid var(--c-border2);
+  color: var(--c-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--trans);
+  backdrop-filter: blur(10px);
+  font-size: 1.1rem;
+}
+.slider-nav:hover { background: var(--c-accent); border-color: var(--c-accent); }
+.slider-nav.prev { left: -16px; }
+.slider-nav.next { right: -16px; }
+
+/* ═══════════════════════════════════════════════
+   CATEGORIES
+═══════════════════════════════════════════════ */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.category-card {
+  border-radius: var(--r-md);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: var(--trans);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.category-card:hover::before { opacity: 0.08; }
+.category-card-icon { font-size: 2rem; }
+.category-card-name { font-size: 0.875rem; font-weight: 600; }
+.category-card-count { font-size: 0.75rem; color: var(--c-text3); }
+.cat-action::before { background: #e84b6e; }
+.cat-comedy::before { background: #e8b84b; }
+.cat-horror::before { background: #9b6ee8; }
+.cat-drama::before { background: #4b8be8; }
+.cat-scifi::before { background: #4be8a0; }
+.cat-adventure::before { background: #e8784b; }
+.cat-animation::before { background: #e84bb8; }
+.cat-thriller::before { background: #e84b4b; }
+
+/* ═══════════════════════════════════════════════
+   HERO SLIDER
+═══════════════════════════════════════════════ */
+.hero-slides { position: absolute; inset: 0; }
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+}
+
+/* ═══════════════════════════════════════════════
+   TOP RATED - RANK LIST
+═══════════════════════════════════════════════ */
+.top-rated-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.top-rated-card {
+  display: flex;
+  gap: 1rem;
+  background: var(--c-surface);
+  border-radius: var(--r-md);
+  padding: 1rem;
+  border: 1px solid var(--c-border);
+  cursor: pointer;
+  transition: var(--trans);
+  align-items: center;
+}
+.top-rated-card:hover { border-color: var(--c-border2); transform: translateX(4px); background: var(--c-surface2); }
+.top-rated-rank {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  color: var(--c-accent);
+  min-width: 50px;
+  text-align: center;
+  opacity: 0.7;
+}
+.top-rated-poster {
+  width: 60px;
+  height: 80px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  background: var(--c-surface2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.top-rated-info { flex: 1; min-width: 0; }
+.top-rated-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top-rated-meta { font-size: 0.8rem; color: var(--c-text3); margin-bottom: 6px; }
+.top-rated-bar { height: 3px; background: var(--c-bg3); border-radius: 2px; overflow: hidden; }
+.top-rated-bar-fill { height: 100%; background: linear-gradient(90deg, var(--c-accent), var(--c-gold)); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════
+   MOVIE DETAIL PAGE
+═══════════════════════════════════════════════ */
+#page-detail { padding-top: var(--nav-h); }
+.detail-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+.detail-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3);
+}
+.detail-hero-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--c-bg) 100%
+  );
+}
+.detail-hero-grad2 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(8,8,16,0.9) 0%,
+    transparent 60%
+  );
+}
+.detail-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-end;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: -300px;
+}
+.detail-poster {
+  width: 220px;
+  flex-shrink: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+  aspect-ratio: 2/3;
+  background: var(--c-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+.detail-poster img { width: 100%; height: 100%; object-fit: cover; }
+.detail-info { flex: 1; padding-bottom: 2rem; }
+.detail-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  letter-spacing: 3px;
+  line-height: 0.9;
+  margin-bottom: 1.25rem;
+}
+.detail-meta-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.detail-genres { display: flex; gap: 6px; flex-wrap: wrap; }
+.detail-desc {
+  font-size: 1rem;
+  color: var(--c-text2);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.detail-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.detail-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.detail-stat-item { text-align: center; }
+.detail-stat-val {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+.detail-stat-label { font-size: 0.75rem; color: var(--c-text3); text-transform: uppercase; letter-spacing: 1px; }
+.detail-body {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+.detail-cast {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+.cast-card {
+  flex: 0 0 120px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--trans);
+}
+.cast-card:hover { transform: translateY(-4px); }
+.cast-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-surface), var(--c-surface2));
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  overflow: hidden;
+  border: 2px solid var(--c-border);
+  transition: var(--trans);
+}
+.cast-card:hover .cast-avatar { border-color: var(--c-accent); }
+.cast-name { font-size: 0.8rem; font-weight: 600; margin-bottom: 2px; }
+.cast-role { font-size: 0.72rem; color: var(--c-text3); }
+.review-form {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--c-border);
+  margin-bottom: 1.5rem;
+}
+.review-form h3 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--c-text2); margin-bottom: 6px; }
+.form-input {
+  width: 100%;
+  background: var(--c-bg2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  color: var(--c-text);
+  font-size: 0.9rem;
+  transition: var(--trans);
+}
+.form-input:focus { border-color: var(--c-accent); outline: none; background: var(--c-bg3); }
+textarea.form-input { min-height: 100px; resize: vertical; }
+.star-rating { display: flex; gap: 6px; }
+.star-btn { font-size: 1.3rem; color: var(--c-text3); cursor: pointer; transition: var(--trans); }
+.star-btn:hover, .star-btn.active { color: var(--c-gold); transform: scale(1.2); }
+.review-card {
+  background: var(--c-surface);
+  border-radius: var(--r-md);
+  padding: 1.25rem;
+  border: 1px solid var(--c-border);
+  margin-bottom: 1rem;
+}
+.review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
+.review-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-purple), var(--c-blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.review-name { font-weight: 600; font-size: 0.9rem; }
+.review-date { font-size: 0.75rem; color: var(--c-text3); }
+.review-stars { display: flex; gap: 2px; color: var(--c-gold); font-size: 0.8rem; }
+.review-text { font-size: 0.9rem; color: var(--c-text2); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════════
+   VIDEO PLAYER PAGE
+═══════════════════════════════════════════════ */
+#page-player {
+  background: #000;
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+}
+.player-container { position: relative; background: #000; }
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: #000;
+}
+.player-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.player-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a0a14, #14142a);
+  gap: 1.5rem;
+}
+.player-placeholder-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(232,75,110,0.2);
+  border: 2px solid rgba(232,75,110,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--c-accent);
+  cursor: pointer;
+  transition: var(--trans);
+  animation: pulseRing 2s ease infinite;
+}
+.player-placeholder-icon:hover { background: rgba(232,75,110,0.35); transform: scale(1.1); }
+@keyframes pulseRing {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,75,110,0.4); }
+  50% { box-shadow: 0 0 0 20px rgba(232,75,110,0); }
+}
+.player-placeholder h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: var(--c-text);
+}
+.player-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+}
+.player-container:hover .player-controls { opacity: 1; }
+.player-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+.player-progress-fill {
+  height: 100%;
+  background: var(--c-accent);
+  border-radius: 2px;
+  width: 35%;
+  position: relative;
+  transition: width 0.1s;
+}
+.player-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.player-progress:hover .player-progress-fill::after { opacity: 1; }
+.player-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.player-btn {
+  color: white;
+  font-size: 1.2rem;
+  transition: var(--trans);
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.player-btn:hover { color: var(--c-accent); transform: scale(1.1); }
+.player-time { font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+.player-title { flex: 1; font-size: 0.9rem; font-weight: 600; text-align: center; }
+.player-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.player-volume-slider {
+  width: 80px;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+.player-volume-fill {
+  height: 100%;
+  background: white;
+  border-radius: 2px;
+  width: 70%;
+}
+.quality-menu {
+  position: relative;
+  display: inline-flex;
+}
+.quality-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--trans);
+}
+.quality-btn:hover { background: rgba(255,255,255,0.2); }
+.quality-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: rgba(8,8,16,0.95);
+  border: 1px solid var(--c-border2);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  display: none;
+  min-width: 100px;
+  backdrop-filter: blur(20px);
+}
+.quality-dropdown.open { display: block; }
+.quality-opt {
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--trans);
+  color: var(--c-text2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.quality-opt:hover, .quality-opt.active { background: var(--c-accent); color: white; }
+.quality-opt .quality-badge {
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.2);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.subtitle-menu { position: relative; }
+.speed-menu { position: relative; }
+.player-below {
+  background: var(--c-bg2);
+  padding: 2rem;
+}
+.player-below-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+}
+.player-movie-info h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+}
+.up-next {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  padding: 1.25rem;
+  border: 1px solid var(--c-border);
+}
+.up-next-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--c-text2);
+  margin-bottom: 1rem;
+}
+.up-next-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: var(--trans);
+}
+.up-next-card:hover { background: var(--c-surface2); }
+.up-next-thumb {
+  width: 80px;
+  height: 50px;
+  border-radius: var(--r-sm);
+  background: var(--c-bg3);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 1.2rem;
+}
+.up-next-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.up-next-info { flex: 1; }
+.up-next-movie-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
+.up-next-movie-meta { font-size: 0.75rem; color: var(--c-text3); }
+
+/* ═══════════════════════════════════════════════
+   BROWSE PAGE
+═══════════════════════════════════════════════ */
+#page-browse { padding-top: calc(var(--nav-h) + 2rem); }
+.browse-header {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 2rem;
+}
+.browse-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter-select {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  color: var(--c-text);
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--trans);
+}
+.filter-select:focus { border-color: var(--c-accent); outline: none; }
+.filter-tag {
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  cursor: pointer;
+  transition: var(--trans);
+}
+.filter-tag:hover, .filter-tag.active { background: var(--c-accent); border-color: var(--c-accent); color: white; }
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.25rem;
+}
+.movies-grid .movie-card { flex: none; }
+
+/* ═══════════════════════════════════════════════
+   SEARCH RESULTS
+═══════════════════════════════════════════════ */
+#page-search { padding-top: calc(var(--nav-h) + 2rem); }
+.search-hero {
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+.search-big {
+  display: flex;
+  align-items: center;
+  background: var(--c-bg2);
+  border: 1px solid var(--c-border2);
+  border-radius: var(--r-lg);
+  padding: 1rem 1.5rem;
+  gap: 1rem;
+  max-width: 700px;
+  transition: var(--trans);
+}
+.search-big:focus-within { border-color: var(--c-accent); }
+.search-big input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--c-text);
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+}
+.search-big input::placeholder { color: var(--c-text3); }
+.search-big svg { color: var(--c-accent); flex-shrink: 0; }
+.search-results-count { font-size: 0.9rem; color: var(--c-text2); margin-bottom: 1.5rem; }
+.search-results-count strong { color: var(--c-text); }
+
+/* ═══════════════════════════════════════════════
+   USER PAGES
+═══════════════════════════════════════════════ */
+#page-profile { padding-top: calc(var(--nav-h) + 2rem); }
+.profile-header {
+  background: linear-gradient(135deg, var(--c-surface), var(--c-surface2));
+  border-bottom: 1px solid var(--c-border);
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+}
+.profile-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-accent), var(--c-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  border: 3px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+.profile-name { font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px; margin-bottom: 4px; }
+.profile-email { font-size: 0.9rem; color: var(--c-text2); margin-bottom: 1rem; }
+.profile-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.profile-tab {
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--c-text2);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: var(--trans);
+}
+.profile-tab:hover { color: var(--c-text); }
+.profile-tab.active { color: var(--c-accent); border-color: var(--c-accent); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+.continue-watching-card {
+  background: var(--c-surface);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--trans);
+  border: 1px solid var(--c-border);
+}
+.continue-watching-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.continue-thumb {
+  aspect-ratio: 16/9;
+  background: var(--c-bg3);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  overflow: hidden;
+}
+.continue-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.continue-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.2);
+}
+.continue-progress-fill {
+  height: 100%;
+  background: var(--c-accent);
+}
+.continue-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.continue-watching-card:hover .continue-play { opacity: 1; }
+.continue-info { padding: 0.875rem; }
+.continue-title { font-size: 0.875rem; font-weight: 600; margin-bottom: 4px; }
+.continue-meta { font-size: 0.75rem; color: var(--c-text3); }
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+/* ═══════════════════════════════════════════════
+   AUTH PAGES
+═══════════════════════════════════════════════ */
+#page-login, #page-register {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 30% 50%, rgba(232,75,110,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(155,110,232,0.06) 0%, transparent 50%),
+              var(--c-bg);
+  padding: 2rem;
+}
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: 2.5rem;
+  border: 1px solid var(--c-border2);
+  box-shadow: var(--shadow-hover);
+}
+.auth-logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.auth-logo .logo-accent { color: var(--c-accent); }
+.auth-subtitle { text-align: center; font-size: 0.9rem; color: var(--c-text2); margin-bottom: 2rem; }
+.auth-title { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 1.75rem; text-align: center; }
+.auth-form .form-group { margin-bottom: 1.25rem; }
+.auth-form .form-input { padding: 13px 16px; }
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.8rem;
+  color: var(--c-text3);
+}
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--c-border);
+}
+.social-btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--c-border2);
+  border-radius: var(--r-md);
+  background: var(--c-bg2);
+  color: var(--c-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--trans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.social-btn:hover { background: var(--c-bg3); border-color: var(--c-border2); }
+.auth-switch { text-align: center; font-size: 0.875rem; color: var(--c-text2); margin-top: 1.5rem; }
+.auth-switch a { color: var(--c-accent); font-weight: 600; cursor: pointer; }
+.auth-switch a:hover { text-decoration: underline; }
+.auth-error {
+  background: rgba(232,75,110,0.1);
+  border: 1px solid rgba(232,75,110,0.3);
+  color: var(--c-red2);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  display: none;
+}
+.auth-error.show { display: block; }
+.remember-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; }
+.remember-row a { color: var(--c-accent); }
+.checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--c-text2); }
+.checkbox-label input { accent-color: var(--c-accent); }
+.strength-bar { display: flex; gap: 4px; margin-top: 6px; }
+.strength-segment { flex: 1; height: 3px; background: var(--c-border2); border-radius: 2px; transition: var(--trans); }
+.strength-segment.weak { background: var(--c-red); }
+.strength-segment.medium { background: var(--c-gold); }
+.strength-segment.strong { background: var(--c-green); }
+
+/* ═══════════════════════════════════════════════
+   ADMIN DASHBOARD
+═══════════════════════════════════════════════ */
+#page-admin { display: none; }
+#page-admin.active { display: flex; min-height: 100vh; }
+.admin-sidebar {
+  width: 260px;
+  background: var(--c-surface);
+  border-right: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 200;
+  transition: transform 0.3s;
+}
+.admin-sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--c-border);
+}
+.admin-logo { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 2px; }
+.admin-logo .logo-accent { color: var(--c-accent); }
+.admin-logo small { display: block; font-family: var(--font-body); font-size: 0.7rem; color: var(--c-text3); letter-spacing: 2px; text-transform: uppercase; }
+.admin-nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
+.admin-nav-section {
+  padding: 0.5rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--c-text3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+}
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 1.5rem;
+  font-size: 0.875rem;
+  color: var(--c-text2);
+  cursor: pointer;
+  transition: var(--trans);
+  border-left: 3px solid transparent;
+}
+.admin-nav-item:hover { color: var(--c-text); background: rgba(255,255,255,0.04); }
+.admin-nav-item.active { color: var(--c-accent); background: rgba(232,75,110,0.08); border-color: var(--c-accent); }
+.admin-nav-item .nav-icon { font-size: 1.1rem; flex-shrink: 0; }
+.admin-main {
+  flex: 1;
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.admin-topbar {
+  height: 64px;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.admin-topbar h1 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 2px; flex: 1; }
+.admin-content { flex: 1; padding: 2rem; }
+.admin-pane { display: none; }
+.admin-pane.active { display: block; }
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--trans);
+}
+.stat-card:hover { border-color: var(--c-border2); transform: translateY(-2px); }
+.stat-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+.stat-card-icon.red { background: rgba(232,75,110,0.15); }
+.stat-card-icon.gold { background: rgba(232,184,75,0.15); }
+.stat-card-icon.blue { background: rgba(75,139,232,0.15); }
+.stat-card-icon.green { background: rgba(75,232,160,0.15); }
+.stat-card-label { font-size: 0.8rem; color: var(--c-text3); text-transform: uppercase; letter-spacing: 1px; }
+.stat-card-value { font-family: var(--font-display); font-size: 2rem; letter-spacing: 1px; }
+.stat-card-change { font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+.change-up { color: var(--c-green); }
+.change-down { color: var(--c-red2); }
+.admin-table-wrap {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+}
+.admin-table-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.admin-table-header h3 { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 1px; }
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th {
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--c-text3);
+  text-align: left;
+  background: var(--c-bg2);
+  border-bottom: 1px solid var(--c-border);
+}
+.admin-table td {
+  padding: 14px 16px;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-text2);
+  vertical-align: middle;
+}
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td { background: rgba(255,255,255,0.02); color: var(--c-text); }
+.table-movie-cell { display: flex; align-items: center; gap: 12px; }
+.table-poster {
+  width: 40px;
+  height: 54px;
+  border-radius: 4px;
+  background: var(--c-bg3);
+  object-fit: cover;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.table-actions { display: flex; gap: 6px; }
+.table-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--trans);
+}
+.table-action-btn.edit { background: rgba(75,139,232,0.15); color: var(--c-blue); }
+.table-action-btn.edit:hover { background: var(--c-blue); color: white; }
+.table-action-btn.delete { background: rgba(232,75,110,0.15); color: var(--c-red2); }
+.table-action-btn.delete:hover { background: var(--c-red); color: white; }
+.admin-form {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  border: 1px solid var(--c-border);
+}
+.admin-form h3 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 1.5rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-grid .full { grid-column: 1 / -1; }
+.upload-area {
+  border: 2px dashed var(--c-border2);
+  border-radius: var(--r-md);
+  padding: 2.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--trans);
+  background: var(--c-bg2);
+}
+.upload-area:hover { border-color: var(--c-accent); background: rgba(232,75,110,0.03); }
+.upload-area-icon { font-size: 2.5rem; margin-bottom: 0.75rem; color: var(--c-text3); }
+.upload-area p { font-size: 0.9rem; color: var(--c-text2); margin-bottom: 0.5rem; }
+.upload-area small { font-size: 0.75rem; color: var(--c-text3); }
+.analytics-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.chart-card {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--c-border);
+}
+.chart-card h3 { font-size: 0.9rem; font-weight: 600; color: var(--c-text2); margin-bottom: 1rem; }
+.bar-chart { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-label { font-size: 0.8rem; color: var(--c-text2); min-width: 80px; }
+.bar-track { flex: 1; height: 8px; background: var(--c-bg3); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+.bar-value { font-size: 0.8rem; font-weight: 600; min-width: 40px; text-align: right; }
+
+/* ═══════════════════════════════════════════════
+   NOTIFICATION SYSTEM
+═══════════════════════════════════════════════ */
+.toast-container {
+  position: fixed;
+  top: calc(var(--nav-h) + 1rem);
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+.toast {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border2);
+  border-radius: var(--r-md);
+  padding: 1rem 1.25rem;
+  max-width: 340px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+  animation: slideInRight 0.3s ease;
+  pointer-events: all;
+  backdrop-filter: blur(20px);
+}
+.toast.removing { animation: slideOutRight 0.3s ease forwards; }
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(100%); }
+}
+.toast-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.toast-content { flex: 1; }
+.toast-title { font-size: 0.875rem; font-weight: 600; margin-bottom: 2px; }
+.toast-msg { font-size: 0.8rem; color: var(--c-text2); }
+.toast.success .toast-icon { color: var(--c-green); }
+.toast.error .toast-icon { color: var(--c-red2); }
+.toast.info .toast-icon { color: var(--c-blue); }
+.toast.warning .toast-icon { color: var(--c-gold); }
+.notif-bell { position: relative; }
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background: var(--c-accent);
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--c-bg);
+}
+
+/* ═══════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+  display: none;
+}
+.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  max-width: 560px;
+  width: 100%;
+  border: 1px solid var(--c-border2);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+  animation: modalSlideUp 0.3s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+}
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--trans);
+  color: var(--c-text2);
+}
+.modal-close:hover { background: var(--c-accent); color: white; }
+.modal h2 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.modal-movie-header { display: flex; gap: 1.25rem; margin-bottom: 1.5rem; }
+.modal-poster {
+  width: 80px;
+  height: 110px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  background: var(--c-bg3);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.trailer-wrap {
+  aspect-ratio: 16/9;
+  width: 100%;
+  background: #000;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 3rem;
+}
+
+/* ═══════════════════════════════════════════════
+   LANGUAGE MENU
+═══════════════════════════════════════════════ */
+.lang-menu { position: relative; }
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border2);
+  border-radius: var(--r-md);
+  padding: 6px;
+  min-width: 140px;
+  display: none;
+  box-shadow: var(--shadow-card);
+  z-index: 200;
+}
+.lang-dropdown.open { display: block; animation: fadeSlideDown 0.2s ease; }
+.lang-opt {
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--trans);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--c-text2);
+}
+.lang-opt:hover, .lang-opt.active { background: var(--c-surface2); color: var(--c-text); }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.footer {
+  background: var(--c-surface);
+  border-top: 1px solid var(--c-border);
+  padding: 4rem 0 2rem;
+  margin-top: 4rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-logo { font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; margin-bottom: 0.75rem; }
+.footer-logo .logo-accent { color: var(--c-accent); }
+.footer-desc { font-size: 0.875rem; color: var(--c-text2); line-height: 1.7; margin-bottom: 1.25rem; }
+.footer-social { display: flex; gap: 10px; }
+.social-link {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--c-text2);
+  transition: var(--trans);
+}
+.social-link:hover { background: var(--c-accent); border-color: var(--c-accent); color: white; transform: translateY(-2px); }
+.footer-col h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--c-text3); margin-bottom: 1rem; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-link { font-size: 0.875rem; color: var(--c-text2); cursor: pointer; transition: var(--trans); }
+.footer-link:hover { color: var(--c-text); padding-left: 4px; }
+.footer-bottom {
+  border-top: 1px solid var(--c-border);
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-copy { font-size: 0.8rem; color: var(--c-text3); }
+
+/* ═══════════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════════ */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 999;
+  display: none;
+  backdrop-filter: blur(10px);
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav-panel {
+  width: 300px;
+  height: 100%;
+  background: var(--c-surface);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: slideInLeft 0.3s ease;
+  border-right: 1px solid var(--c-border);
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.mobile-nav-close {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+.mobile-nav-links { display: flex; flex-direction: column; gap: 4px; }
+.mobile-nav-link {
+  padding: 12px 16px;
+  border-radius: var(--r-sm);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--c-text2);
+  cursor: pointer;
+  transition: var(--trans);
+}
+.mobile-nav-link:hover, .mobile-nav-link.active { color: var(--c-text); background: rgba(255,255,255,0.06); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .search-bar-nav { display: none; }
+  .hamburger { display: flex; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .player-below-inner { grid-template-columns: 1fr; }
+  .analytics-charts { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .admin-sidebar { transform: translateX(-100%); }
+  .admin-sidebar.open { transform: translateX(0); }
+  .admin-main { margin-left: 0; }
+}
+@media (max-width: 768px) {
+  :root { --nav-h: 60px; }
+  .hero { height: 80vh; }
+  .hero-title { font-size: 3rem; }
+  .movie-card { flex: 0 0 150px; }
+  .movie-card-featured { flex: 0 0 260px; height: 170px; }
+  .detail-content { flex-direction: column; gap: 1.5rem; margin-top: -200px; }
+  .detail-poster { width: 140px; }
+  .categories-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .footer-grid { grid-template-columns: 1fr; }
+  .detail-body { padding: 1.5rem 1rem; }
+  .top-rated-grid { grid-template-columns: 1fr; }
+  .profile-inner { flex-direction: column; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 1rem; }
+  .hero-actions { flex-direction: column; }
+  .hero-stats { gap: 1.5rem; }
+  .movies-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .btn { padding: 11px 20px; font-size: 0.9rem; }
+  .auth-card { padding: 1.75rem 1.25rem; }
+  .admin-content { padding: 1rem; }
+}
+
+/* ═══════════════════════════════════════════════
+   LOADING SPINNER
+═══════════════════════════════════════════════ */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--c-border2);
+  border-top-color: var(--c-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════
+   PROGRESS / SKELETON
+═══════════════════════════════════════════════ */
+.skeleton {
+  background: linear-gradient(90deg, var(--c-surface) 25%, var(--c-surface2) 50%, var(--c-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--r-sm);
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* ═══════════════════════════════════════════════
+   MULTI LANGUAGE STRINGS (via data attr)
+═══════════════════════════════════════════════ */
+[data-i18n] { transition: opacity 0.2s; }
+
+/* ═══════════════════════════════════════════════
+   RECOMMENDATION SECTION
+═══════════════════════════════════════════════ */
+.rec-banner {
+  background: linear-gradient(135deg, rgba(232,75,110,0.1), rgba(155,110,232,0.1));
+  border: 1px solid rgba(232,75,110,0.2);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.rec-icon { font-size: 2.5rem; }
+.rec-text h3 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 4px; }
+.rec-text p { font-size: 0.9rem; color: var(--c-text2); }
+
+/* ═══════════════════════════════════════════════
+   MISC HELPERS
+═══════════════════════════════════════════════ */
+.text-accent { color: var(--c-accent); }
+.text-gold { color: var(--c-gold); }
+.text-muted { color: var(--c-text2); }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.w-full { width: 100%; }
+.pb-6 { padding-bottom: 3rem; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     TOAST NOTIFICATIONS
+═══════════════════════════════════════════════ -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+    <a class="nav-logo" onclick="showPage('home')">
+      <div class="logo-dot"></div>
+      <span>CINE</span><span class="logo-accent">MAX</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link active" onclick="showPage('home')" data-page="home">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+      <a class="nav-link" onclick="showPage('browse')" data-page="browse">Browse</a>
+      <a class="nav-link" onclick="showBrowse('Movie')">Movies</a>
+      <a class="nav-link" onclick="showBrowse('TV')">TV Shows</a>
+      <a class="nav-link" onclick="showBrowse('Anime')">Anime</a>
+      <div class="nav-link" style="position:relative" id="langMenuBtn" onclick="toggleDropdown('langDrop')">
+        🌐 EN
+        <div class="lang-dropdown" id="langDrop">
+          <div class="lang-opt active" onclick="setLang('en')">🇺🇸 English</div>
+          <div class="lang-opt" onclick="setLang('es')">🇪🇸 Español</div>
+          <div class="lang-opt" onclick="setLang('fr')">🇫🇷 Français</div>
+          <div class="lang-opt" onclick="setLang('de')">🇩🇪 Deutsch</div>
+          <div class="lang-opt" onclick="setLang('ja')">🇯🇵 日本語</div>
+          <div class="lang-opt" onclick="setLang('uz')">🇺🇿 O'zbek</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="search-bar-nav">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search movies, shows..." id="navSearch" oninput="handleNavSearch(this.value)" onkeydown="if(event.key==='Enter')showPage('search')">
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg id="themeIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="theme-toggle notif-bell" onclick="showToast('info','Notifications','You have 3 new notifications',3000)" title="Notifications">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge">3</span>
+      </button>
+      <div id="navUserArea">
+        <button class="btn btn-secondary" style="padding:8px 16px;font-size:0.85rem;" onclick="showPage('login')">Sign In</button>
+        <button class="btn btn-primary" style="padding:8px 16px;font-size:0.85rem;" onclick="showPage('register')">Join Free</button>
+      </div>
+      <div id="navLoggedIn" class="hidden" style="position:relative">
+        <div class="user-avatar" onclick="toggleDropdown('userDrop')" id="userAvatarBtn">JD</div>
+        <div class="user-dropdown" id="userDrop">
+          <div style="padding:10px 12px;font-size:0.85rem;border-bottom:1px solid var(--c-border);margin-bottom:4px">
+            <div style="font-weight:600" id="ddUserName">John Doe</div>
+            <div style="color:var(--c-text3);font-size:0.75rem" id="ddUserEmail">john@example.com</div>
+          </div>
+          <div class="dropdown-item" onclick="showPage('profile')">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            My Profile
+          </div>
+          <div class="dropdown-item" onclick="showProfile('wishlist')">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            Wishlist
+          </div>
+          <div class="dropdown-item" onclick="showProfile('history')">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Watch History
+          </div>
+          <div class="dropdown-item" onclick="showPage('admin')">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+            Admin Panel
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item danger" onclick="logout()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     MOBILE NAV
+═══════════════════════════════════════════════ -->
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-close">
+      <button onclick="toggleMobileNav()" style="color:var(--c-text2);font-size:1.5rem">✕</button>
+    </div>
+    <div class="nav-logo" onclick="showPage('home');toggleMobileNav()">
+      <div class="logo-dot"></div>
+      <span>CINE</span><span class="logo-accent">MAX</span>
+    </div>
+    <div class="search-bar-nav" style="width:100%">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search..." oninput="handleNavSearch(this.value)">
+    </div>
+    <div class="mobile-nav-links">
+      <div class="mobile-nav-link" onclick="showPage('home');toggleMobileNav()">🏠 Home</div>
+      <div class="mobile-nav-link" onclick="showPage('browse');toggleMobileNav()">🎬 Browse All</div>
+      <div class="mobile-nav-link" onclick="showBrowse('Movie');toggleMobileNav()">🎥 Movies</div>
+      <div class="mobile-nav-link" onclick="showBrowse('TV');toggleMobileNav()">📺 TV Shows</div>
+      <div class="mobile-nav-link" onclick="showBrowse('Anime');toggleMobileNav()">✨ Anime</div>
+      <div class="mobile-nav-link" onclick="showPage('profile');toggleMobileNav()">👤 Profile</div>
+      <div class="mobile-nav-link" onclick="showPage('admin');toggleMobileNav()">⚙️ Admin</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-video-bg">
+      <div class="hero-slides" id="heroSlides"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-inner">
+        <div class="hero-meta" id="heroMeta"></div>
+        <h1 class="hero-title" id="heroTitle">
+          <span class="line1" id="heroLine1"></span>
+          <br><span class="line2" id="heroLine2"></span>
+        </h1>
+        <p class="hero-desc" id="heroDesc"></p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="heroWatchBtn" onclick="">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch Now
+          </button>
+          <button class="btn btn-secondary" id="heroInfoBtn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            More Info
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">50<span class="unit">K+</span></div><div class="label">Movies & Shows</div></div>
+          <div class="hero-stat"><div class="num">4<span class="unit">K</span></div><div class="label">Ultra HD Quality</div></div>
+          <div class="hero-stat"><div class="num">30<span class="unit">+</span></div><div class="label">Languages</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-indicators" id="heroIndicators"></div>
+    <div class="hero-scroll-hint">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      Scroll
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🔥 <span class="accent">Trending</span> Now</h2>
+        <a class="view-all" onclick="showPage('browse')">View All →</a>
+      </div>
+      <div class="slider-wrap">
+        <button class="slider-nav prev" onclick="slide('trending',-1)">‹</button>
+        <div class="movies-row" id="trendingRow"></div>
+        <button class="slider-nav next" onclick="slide('trending',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATION BANNER (logged in users) -->
+  <div class="container" id="recBanner" style="display:none">
+    <div class="rec-banner">
+      <div class="rec-icon">🤖</div>
+      <div class="rec-text" style="flex:1">
+        <h3>RECOMMENDED FOR YOU</h3>
+        <p>Based on your watch history — movies you'll probably love</p>
+      </div>
+    </div>
+    <div class="slider-wrap mb-3">
+      <div class="movies-row" id="recRow"></div>
+    </div>
+  </div>
+
+  <!-- FEATURED (wide cards) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🎬 <span class="accent">Latest</span> Releases</h2>
+        <a class="view-all" onclick="showPage('browse')">View All →</a>
+      </div>
+      <div class="movies-row" id="latestRow"></div>
+    </div>
+  </section>
+
+  <!-- TOP RATED -->
+  <section class="section" style="background:var(--c-bg2);padding:3rem 0">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">⭐ <span class="accent">Top Rated</span> All Time</h2>
+      </div>
+      <div class="top-rated-grid" id="topRatedGrid"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">🎭 Browse by <span class="accent">Genre</span></h2>
+      <div class="categories-grid" id="categoriesGrid"></div>
+    </div>
+  </section>
+
+  <!-- NEW TV SHOWS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">📺 <span class="accent">New</span> Arrivals</h2>
+        <a class="view-all" onclick="showBrowse('TV')">View All →</a>
+      </div>
+      <div class="slider-wrap">
+        <button class="slider-nav prev" onclick="slide('newArrivals',-1)">‹</button>
+        <div class="movies-row" id="newArrivalsRow"></div>
+        <button class="slider-nav next" onclick="slide('newArrivals',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTINUE WATCHING (logged-in) -->
+  <div class="container" id="continueWatchingSection" style="display:none">
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">▶️ <span class="accent">Continue</span> Watching</h2>
+        <a class="view-all" onclick="showProfile('watching')">See All</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem" id="continueGrid"></div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">CINE<span class="logo-accent">MAX</span></div>
+          <p class="footer-desc">The ultimate premium streaming platform. Watch thousands of movies and shows in stunning 4K Ultra HD with Dolby Atmos sound.</p>
+          <div class="footer-social">
+            <a class="social-link" title="Twitter">𝕏</a>
+            <a class="social-link" title="Facebook">f</a>
+            <a class="social-link" title="Instagram">📷</a>
+            <a class="social-link" title="YouTube">▶</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <span class="footer-link">About Us</span>
+            <span class="footer-link">Careers</span>
+            <span class="footer-link">Press</span>
+            <span class="footer-link">Blog</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <span class="footer-link">Help Center</span>
+            <span class="footer-link">Contact Us</span>
+            <span class="footer-link">Privacy Policy</span>
+            <span class="footer-link">Terms of Service</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Get the App</h4>
+          <div class="footer-links">
+            <span class="footer-link">📱 iOS App</span>
+            <span class="footer-link">🤖 Android App</span>
+            <span class="footer-link">📺 Smart TV</span>
+            <span class="footer-link">🎮 PlayStation</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 CineMax. All rights reserved. Premium streaming platform.</div>
+        <div style="display:flex;gap:1rem;font-size:0.8rem;color:var(--c-text3)">
+          <span class="footer-link">Privacy</span>
+          <span class="footer-link">Terms</span>
+          <span class="footer-link">Cookies</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-home -->
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: BROWSE
+═══════════════════════════════════════════════ -->
+<div id="page-browse" class="page">
+  <div class="container">
+    <div class="browse-header">
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem">
+        <h1 style="font-family:var(--font-display);font-size:2rem;letter-spacing:2px" id="browseTitle">BROWSE ALL</h1>
+        <span id="browseCount" style="font-size:0.85rem;color:var(--c-text3)"></span>
+      </div>
+      <div class="browse-filters">
+        <select class="filter-select" id="filterGenre" onchange="applyFilters()">
+          <option value="">All Genres</option>
+          <option>Action</option><option>Comedy</option><option>Horror</option>
+          <option>Drama</option><option>Sci-Fi</option><option>Adventure</option>
+          <option>Animation</option><option>Thriller</option><option>Romance</option>
+        </select>
+        <select class="filter-select" id="filterYear" onchange="applyFilters()">
+          <option value="">All Years</option>
+          <option>2025</option><option>2024</option><option>2023</option>
+          <option>2022</option><option>2021</option><option>2020</option>
+          <option>2019</option>
+        </select>
+        <select class="filter-select" id="filterSort" onchange="applyFilters()">
+          <option value="popular">Most Popular</option>
+          <option value="rating">Highest Rated</option>
+          <option value="newest">Newest First</option>
+          <option value="az">A–Z</option>
+        </select>
+        <div id="filterTags" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+    <div class="movies-grid" id="browseGrid"></div>
+    <div style="text-align:center;padding:3rem 0" id="browseLoadMore">
+      <button class="btn btn-secondary" onclick="loadMoreMovies()">Load More Movies</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: SEARCH
+═══════════════════════════════════════════════ -->
+<div id="page-search" class="page">
+  <div class="search-hero">
+    <div class="container">
+      <div class="search-big">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search movies, shows, actors..." id="searchInput" oninput="doSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch(this.value)">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div id="searchResultsInfo" class="search-results-count"></div>
+    <div class="movies-grid" id="searchGrid"></div>
+    <div id="searchEmpty" class="hidden" style="text-align:center;padding:5rem 1rem">
+      <div style="font-size:4rem;margin-bottom:1rem">🔍</div>
+      <h2 style="font-family:var(--font-display);font-size:2rem;letter-spacing:2px;margin-bottom:0.5rem">NO RESULTS</h2>
+      <p style="color:var(--c-text2)">Try different keywords or browse all movies</p>
+      <button class="btn btn-primary mt-2" onclick="showPage('browse')">Browse All</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: MOVIE DETAIL
+═══════════════════════════════════════════════ -->
+<div id="page-detail" class="page">
+  <div class="detail-hero">
+    <div id="detailBg" style="position:absolute;inset:0;background:var(--c-bg3)"></div>
+    <div class="detail-hero-grad"></div>
+    <div class="detail-hero-grad2"></div>
+  </div>
+  <div class="detail-content">
+    <div class="detail-poster" id="detailPoster">🎬</div>
+    <div class="detail-info">
+      <div class="detail-meta-row" id="detailMetaRow"></div>
+      <h1 class="detail-title" id="detailTitle"></h1>
+      <div class="detail-genres" id="detailGenres"></div>
+      <p class="detail-desc" id="detailDesc" style="margin-top:1rem"></p>
+      <div class="detail-actions" id="detailActions"></div>
+      <div class="detail-stats" id="detailStats"></div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <h2 class="section-title mb-2">🎭 Cast & <span class="accent">Crew</span></h2>
+    <div class="detail-cast" id="detailCast"></div>
+
+    <div style="height:2px;background:var(--c-border);margin:2.5rem 0"></div>
+    <h2 class="section-title mb-2">🎬 Related <span class="accent">Movies</span></h2>
+    <div class="movies-row" id="relatedMovies"></div>
+
+    <div style="height:2px;background:var(--c-border);margin:2.5rem 0"></div>
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:2rem">
+      <div>
+        <h2 class="section-title mb-2">💬 Reviews & <span class="accent">Ratings</span></h2>
+        <div class="review-form">
+          <h3>WRITE A REVIEW</h3>
+          <div class="form-group">
+            <label>Your Rating</label>
+            <div class="star-rating" id="reviewStars">
+              <span class="star-btn" onclick="setReviewStar(1)" data-star="1">★</span>
+              <span class="star-btn" onclick="setReviewStar(2)" data-star="2">★</span>
+              <span class="star-btn" onclick="setReviewStar(3)" data-star="3">★</span>
+              <span class="star-btn" onclick="setReviewStar(4)" data-star="4">★</span>
+              <span class="star-btn" onclick="setReviewStar(5)" data-star="5">★</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Review Title</label>
+            <input class="form-input" type="text" placeholder="Sum up your review..." id="reviewTitle">
+          </div>
+          <div class="form-group">
+            <label>Your Review</label>
+            <textarea class="form-input" placeholder="Share your thoughts about this movie..." id="reviewText"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="submitReview()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Post Review
+          </button>
+        </div>
+        <div id="reviewsList"></div>
+      </div>
+      <div>
+        <div style="background:var(--c-surface);border-radius:var(--r-lg);padding:1.5rem;border:1px solid var(--c-border)">
+          <h3 style="font-family:var(--font-display);font-size:1.2rem;letter-spacing:1px;margin-bottom:1rem">MOVIE INFO</h3>
+          <div id="movieInfoTable"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: PLAYER
+═══════════════════════════════════════════════ -->
+<div id="page-player" class="page">
+  <div class="player-container" id="playerContainer">
+    <div class="player-wrapper">
+      <div class="player-placeholder" id="playerPlaceholder">
+        <div class="player-placeholder-icon" onclick="simulatePlay()">▶</div>
+        <h2 id="playerMovieTitle">Loading...</h2>
+        <p style="color:var(--c-text2);font-size:0.9rem">Click to start watching</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:1rem">
+          <span class="badge badge-gold">4K UHD</span>
+          <span class="badge badge-blue">Dolby Atmos</span>
+          <span class="badge badge-green">HDR10+</span>
+          <span class="badge badge-purple">CC</span>
+        </div>
+      </div>
+      <div class="player-controls" id="playerControls">
+        <div class="player-progress" id="playerProgress" onclick="seekPlayer(event)">
+          <div class="player-progress-fill" id="progressFill"></div>
+        </div>
+        <div class="player-controls-row">
+          <button class="player-btn" onclick="togglePlay()" id="playPauseBtn" title="Play/Pause">▶</button>
+          <button class="player-btn" onclick="skipBack()">⏮ 10s</button>
+          <button class="player-btn" onclick="skipForward()">10s ⏭</button>
+          <div class="player-volume">
+            <button class="player-btn" onclick="toggleMute()" id="muteBtn">🔊</button>
+            <div class="player-volume-slider" onclick="setVolume(event)">
+              <div class="player-volume-fill" id="volFill"></div>
+            </div>
+          </div>
+          <span class="player-time" id="playerTime">00:00 / 2:08:34</span>
+          <span class="player-title" id="playerTitleBar"></span>
+          <!-- Quality -->
+          <div class="quality-menu">
+            <button class="quality-btn" onclick="toggleDropdown('qualityDrop')" id="qualityBtn">1080p</button>
+            <div class="quality-dropdown" id="qualityDrop">
+              <div class="quality-opt" onclick="setQuality('4K')">4K UHD <span class="quality-badge">HDR</span></div>
+              <div class="quality-opt active" onclick="setQuality('1080p')">1080p <span class="quality-badge">HD</span></div>
+              <div class="quality-opt" onclick="setQuality('720p')">720p</div>
+              <div class="quality-opt" onclick="setQuality('360p')">360p</div>
+            </div>
+          </div>
+          <!-- Subtitles -->
+          <div class="quality-menu">
+            <button class="quality-btn" onclick="toggleDropdown('subDrop')">CC</button>
+            <div class="quality-dropdown" id="subDrop">
+              <div class="quality-opt active" onclick="setSub('Off')">Off</div>
+              <div class="quality-opt" onclick="setSub('English')">English</div>
+              <div class="quality-opt" onclick="setSub('Spanish')">Spanish</div>
+              <div class="quality-opt" onclick="setSub('French')">French</div>
+              <div class="quality-opt" onclick="setSub('Arabic')">Arabic</div>
+              <div class="quality-opt" onclick="setSub('Uzbek')">Uzbek</div>
+            </div>
+          </div>
+          <!-- Speed -->
+          <div class="quality-menu">
+            <button class="quality-btn" onclick="toggleDropdown('speedDrop')" id="speedBtn">1x</button>
+            <div class="quality-dropdown" id="speedDrop">
+              <div class="quality-opt" onclick="setSpeed(0.5)">0.5x</div>
+              <div class="quality-opt" onclick="setSpeed(0.75)">0.75x</div>
+              <div class="quality-opt active" onclick="setSpeed(1)">1x</div>
+              <div class="quality-opt" onclick="setSpeed(1.25)">1.25x</div>
+              <div class="quality-opt" onclick="setSpeed(1.5)">1.5x</div>
+              <div class="quality-opt" onclick="setSpeed(2)">2x</div>
+            </div>
+          </div>
+          <button class="player-btn" onclick="toggleFullscreen()">⛶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="player-below">
+    <div class="player-below-inner">
+      <div class="player-movie-info">
+        <h2 id="playerDetailTitle"></h2>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:1rem" id="playerDetailMeta"></div>
+        <p style="color:var(--c-text2);line-height:1.8" id="playerDetailDesc"></p>
+        <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="showCurrentDetail()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Movie Details
+          </button>
+          <button class="btn btn-secondary" onclick="addToWishlist(currentPlayingId)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            Wishlist
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="up-next">
+          <div class="up-next-title">▶ UP NEXT</div>
+          <div id="upNextList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: LOGIN
+═══════════════════════════════════════════════ -->
+<div id="page-login" class="page">
+  <div class="auth-card">
+    <div class="auth-logo">CINE<span class="logo-accent">MAX</span></div>
+    <p class="auth-subtitle">Premium Movie Streaming</p>
+    <h2 class="auth-title">WELCOME BACK</h2>
+    <div class="auth-error" id="loginError">Invalid email or password. Please try again.</div>
+    <div class="auth-form">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input class="form-input" type="email" id="loginEmail" placeholder="you@example.com" value="admin@cinemax.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input class="form-input" type="password" id="loginPassword" placeholder="Your password" value="password123">
+      </div>
+      <div class="remember-row mb-2">
+        <label class="checkbox-label">
+          <input type="checkbox" checked> Remember me
+        </label>
+        <a onclick="showToast('info','Reset Email Sent','Check your inbox for a reset link')">Forgot password?</a>
+      </div>
+      <button class="btn btn-primary w-full" onclick="doLogin()" style="justify-content:center">
+        Sign In to CineMax
+      </button>
+    </div>
+    <div class="auth-divider">or continue with</div>
+    <button class="social-btn" onclick="doSocialLogin('Google')">🔴 Continue with Google</button>
+    <button class="social-btn" onclick="doSocialLogin('Facebook')">🔵 Continue with Facebook</button>
+    <div class="auth-switch">
+      Don't have an account? <a onclick="showPage('register')">Sign up free</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: REGISTER
+═══════════════════════════════════════════════ -->
+<div id="page-register" class="page">
+  <div class="auth-card">
+    <div class="auth-logo">CINE<span class="logo-accent">MAX</span></div>
+    <p class="auth-subtitle">Premium Movie Streaming</p>
+    <h2 class="auth-title">CREATE ACCOUNT</h2>
+    <div class="auth-error" id="regError"></div>
+    <div class="auth-form">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input class="form-input" type="text" id="regName" placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input class="form-input" type="email" id="regEmail" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input class="form-input" type="password" id="regPassword" placeholder="Min. 8 characters" oninput="checkStrength(this.value)">
+        <div class="strength-bar mt-1">
+          <div class="strength-segment" id="s1"></div>
+          <div class="strength-segment" id="s2"></div>
+          <div class="strength-segment" id="s3"></div>
+          <div class="strength-segment" id="s4"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input class="form-input" type="password" id="regConfirm" placeholder="Repeat password">
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="regTerms"> I agree to the Terms of Service and Privacy Policy
+        </label>
+      </div>
+      <button class="btn btn-primary w-full" onclick="doRegister()" style="justify-content:center">
+        Create Free Account
+      </button>
+    </div>
+    <div class="auth-divider">or</div>
+    <button class="social-btn" onclick="doSocialLogin('Google')">🔴 Sign up with Google</button>
+    <div class="auth-switch">
+      Already have an account? <a onclick="showPage('login')">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: PROFILE
+═══════════════════════════════════════════════ -->
+<div id="page-profile" class="page">
+  <div class="profile-header">
+    <div class="profile-inner">
+      <div class="profile-avatar" id="profileAvatarLg">JD</div>
+      <div>
+        <div class="profile-name" id="profileNameLg">John Doe</div>
+        <div class="profile-email" id="profileEmailLg">john@example.com</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <span class="badge badge-gold">⭐ Premium Member</span>
+          <span class="badge badge-blue">Joined 2023</span>
+        </div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:1.5rem;flex-wrap:wrap">
+        <div style="text-align:center"><div style="font-family:var(--font-display);font-size:1.5rem" id="profileMoviesWatched">47</div><div style="font-size:0.75rem;color:var(--c-text3);text-transform:uppercase;letter-spacing:1px">Watched</div></div>
+        <div style="text-align:center"><div style="font-family:var(--font-display);font-size:1.5rem" id="profileWishlistCount">12</div><div style="font-size:0.75rem;color:var(--c-text3);text-transform:uppercase;letter-spacing:1px">Wishlist</div></div>
+        <div style="text-align:center"><div style="font-family:var(--font-display);font-size:1.5rem">4.2</div><div style="font-size:0.75rem;color:var(--c-text3);text-transform:uppercase;letter-spacing:1px">Avg Rating</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="profile-tabs">
+      <div class="profile-tab active" onclick="switchProfileTab('watching')">▶ Continue Watching</div>
+      <div class="profile-tab" onclick="switchProfileTab('wishlist')">♥ Wishlist</div>
+      <div class="profile-tab" onclick="switchProfileTab('history')">🕐 History</div>
+      <div class="profile-tab" onclick="switchProfileTab('settings')">⚙ Settings</div>
+    </div>
+    <div class="tab-pane active" id="tab-watching">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem" id="profileContinueGrid"></div>
+    </div>
+    <div class="tab-pane" id="tab-wishlist">
+      <div class="wishlist-grid" id="profileWishlistGrid"></div>
+    </div>
+    <div class="tab-pane" id="tab-history">
+      <div style="display:flex;flex-direction:column;gap:12px" id="profileHistoryList"></div>
+    </div>
+    <div class="tab-pane" id="tab-settings">
+      <div style="max-width:600px">
+        <div class="admin-form">
+          <h3>ACCOUNT SETTINGS</h3>
+          <div class="form-group">
+            <label>Display Name</label>
+            <input class="form-input" type="text" id="settingsName" value="John Doe">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input class="form-input" type="email" id="settingsEmail" value="john@example.com">
+          </div>
+          <div class="form-group">
+            <label>Language</label>
+            <select class="form-input filter-select" style="width:100%">
+              <option>English</option><option>Spanish</option><option>French</option><option>Uzbek</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Default Video Quality</label>
+            <select class="form-input filter-select" style="width:100%">
+              <option>Auto</option><option>4K UHD</option><option>1080p HD</option><option>720p</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label" style="font-size:0.9rem">
+              <input type="checkbox" checked> Email notifications for new releases
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label" style="font-size:0.9rem">
+              <input type="checkbox" checked> Autoplay next episode
+            </label>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="saveSettings()">Save Changes</button>
+            <button class="btn btn-secondary">Change Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding-bottom:4rem"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: ADMIN
+═══════════════════════════════════════════════ -->
+<div id="page-admin" class="page">
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="admin-sidebar-header">
+      <div class="admin-logo">CINE<span class="logo-accent">MAX</span><small>Admin Dashboard</small></div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-section">Overview</div>
+      <div class="admin-nav-item active" onclick="switchAdminPane('analytics')" data-pane="analytics">
+        <span class="nav-icon">📊</span> Analytics
+      </div>
+      <div class="admin-nav-section">Content</div>
+      <div class="admin-nav-item" onclick="switchAdminPane('movies')" data-pane="movies">
+        <span class="nav-icon">🎬</span> Movies
+      </div>
+      <div class="admin-nav-item" onclick="switchAdminPane('add-movie')" data-pane="add-movie">
+        <span class="nav-icon">➕</span> Add Movie
+      </div>
+      <div class="admin-nav-item" onclick="switchAdminPane('categories')" data-pane="categories">
+        <span class="nav-icon">🗂</span> Categories
+      </div>
+      <div class="admin-nav-section">Users</div>
+      <div class="admin-nav-item" onclick="switchAdminPane('users')" data-pane="users">
+        <span class="nav-icon">👥</span> Users
+      </div>
+      <div class="admin-nav-item" onclick="switchAdminPane('comments')" data-pane="comments">
+        <span class="nav-icon">💬</span> Comments
+      </div>
+      <div class="admin-nav-section">System</div>
+      <div class="admin-nav-item" onclick="showPage('home')">
+        <span class="nav-icon">↩</span> Back to Site
+      </div>
+    </nav>
+  </aside>
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <button class="hamburger" onclick="document.getElementById('adminSidebar').classList.toggle('open')" style="display:flex">
+        <span></span><span></span><span></span>
+      </button>
+      <h1 id="adminTopbarTitle">ANALYTICS</h1>
+      <div style="display:flex;align-items:center;gap:1rem;margin-left:auto">
+        <span style="font-size:0.85rem;color:var(--c-text2)">Admin: <strong id="adminName">John Doe</strong></span>
+        <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.8rem" onclick="showPage('home')">← Exit Admin</button>
+      </div>
+    </div>
+    <div class="admin-content">
+
+      <!-- ANALYTICS PANE -->
+      <div class="admin-pane active" id="pane-analytics">
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-card-icon red">🎬</div>
+            <div class="stat-card-label">Total Movies</div>
+            <div class="stat-card-value" id="adminTotalMovies">0</div>
+            <div class="stat-card-change change-up">↑ 12% this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon blue">👥</div>
+            <div class="stat-card-label">Total Users</div>
+            <div class="stat-card-value">24,891</div>
+            <div class="stat-card-change change-up">↑ 8.3% this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon gold">▶</div>
+            <div class="stat-card-label">Views Today</div>
+            <div class="stat-card-value">142K</div>
+            <div class="stat-card-change change-up">↑ 23% vs yesterday</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon green">💰</div>
+            <div class="stat-card-label">Revenue (Monthly)</div>
+            <div class="stat-card-value">$48.2K</div>
+            <div class="stat-card-change change-down">↓ 2.1% this month</div>
+          </div>
+        </div>
+        <div class="analytics-charts">
+          <div class="chart-card">
+            <h3>VIEWS BY GENRE</h3>
+            <div class="bar-chart">
+              <div class="bar-row"><span class="bar-label">Action</span><div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--c-accent)"></div></div><span class="bar-value text-accent">85%</span></div>
+              <div class="bar-row"><span class="bar-label">Drama</span><div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--c-blue)"></div></div><span class="bar-value" style="color:var(--c-blue)">72%</span></div>
+              <div class="bar-row"><span class="bar-label">Comedy</span><div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--c-gold)"></div></div><span class="bar-value text-gold">65%</span></div>
+              <div class="bar-row"><span class="bar-label">Sci-Fi</span><div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--c-green)"></div></div><span class="bar-value" style="color:var(--c-green)">58%</span></div>
+              <div class="bar-row"><span class="bar-label">Horror</span><div class="bar-track"><div class="bar-fill" style="width:44%;background:var(--c-purple)"></div></div><span class="bar-value" style="color:var(--c-purple)">44%</span></div>
+              <div class="bar-row"><span class="bar-label">Animation</span><div class="bar-track"><div class="bar-fill" style="width:38%;background:var(--c-blue)"></div></div><span class="bar-value" style="color:var(--c-blue)">38%</span></div>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3>TOP COUNTRIES</h3>
+            <div class="bar-chart">
+              <div class="bar-row"><span class="bar-label">🇺🇸 USA</span><div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--c-accent)"></div></div><span class="bar-value">34%</span></div>
+              <div class="bar-row"><span class="bar-label">🇬🇧 UK</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--c-blue)"></div></div><span class="bar-value">22%</span></div>
+              <div class="bar-row"><span class="bar-label">🇩🇪 Germany</span><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--c-gold)"></div></div><span class="bar-value">17%</span></div>
+              <div class="bar-row"><span class="bar-label">🇺🇿 Uzbekistan</span><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--c-green)"></div></div><span class="bar-value">13%</span></div>
+              <div class="bar-row"><span class="bar-label">🇯🇵 Japan</span><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--c-purple)"></div></div><span class="bar-value">8%</span></div>
+              <div class="bar-row"><span class="bar-label">🌍 Other</span><div class="bar-track"><div class="bar-fill" style="width:16%;background:var(--c-text3)"></div></div><span class="bar-value">6%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>RECENT ACTIVITY</h3>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Action</th><th>Movie</th><th>Time</th></tr></thead>
+            <tbody>
+              <tr><td>john.doe@mail.com</td><td><span class="badge badge-blue">Watched</span></td><td>Inception</td><td>2m ago</td></tr>
+              <tr><td>sarah.k@mail.com</td><td><span class="badge badge-gold">Rated</span></td><td>The Dark Knight</td><td>5m ago</td></tr>
+              <tr><td>mike.j@mail.com</td><td><span class="badge badge-green">Added to Wishlist</span></td><td>Interstellar</td><td>12m ago</td></tr>
+              <tr><td>anna.m@mail.com</td><td><span class="badge badge-blue">Watched</span></td><td>Parasite</td><td>18m ago</td></tr>
+              <tr><td>tom.b@mail.com</td><td><span class="badge badge-purple">Reviewed</span></td><td>Avengers: Endgame</td><td>32m ago</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MOVIES PANE -->
+      <div class="admin-pane" id="pane-movies">
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>MOVIE LIBRARY</h3>
+            <button class="btn btn-primary" style="padding:8px 16px;font-size:0.875rem" onclick="switchAdminPane('add-movie')">+ Add Movie</button>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Movie</th><th>Genre</th><th>Year</th><th>Rating</th><th>Views</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="adminMoviesTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADD MOVIE PANE -->
+      <div class="admin-pane" id="pane-add-movie">
+        <div class="admin-form">
+          <h3>ADD NEW MOVIE</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Movie Title</label>
+              <input class="form-input" type="text" id="newMovieTitle" placeholder="e.g. Inception">
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input class="form-input" type="number" id="newMovieYear" placeholder="2025" value="2025">
+            </div>
+            <div class="form-group">
+              <label>Genre</label>
+              <select class="form-input filter-select" style="width:100%" id="newMovieGenre">
+                <option>Action</option><option>Comedy</option><option>Drama</option>
+                <option>Horror</option><option>Sci-Fi</option><option>Adventure</option>
+                <option>Animation</option><option>Thriller</option><option>Romance</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select class="form-input filter-select" style="width:100%" id="newMovieType">
+                <option>Movie</option><option>TV Show</option><option>Anime</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Duration (minutes)</label>
+              <input class="form-input" type="number" id="newMovieDuration" placeholder="120">
+            </div>
+            <div class="form-group">
+              <label>Rating (0-10)</label>
+              <input class="form-input" type="number" id="newMovieRating" placeholder="8.5" min="0" max="10" step="0.1">
+            </div>
+            <div class="form-group full">
+              <label>Description</label>
+              <textarea class="form-input" id="newMovieDesc" placeholder="Movie description..." style="min-height:120px"></textarea>
+            </div>
+            <div class="form-group full">
+              <label>Poster Emoji (placeholder)</label>
+              <input class="form-input" type="text" id="newMovieEmoji" placeholder="🎬" value="🎬">
+            </div>
+            <div class="form-group full">
+              <label>Movie Poster</label>
+              <div class="upload-area" onclick="showToast('info','Upload','File upload ready in production')">
+                <div class="upload-area-icon">🖼</div>
+                <p>Drag & drop poster image here</p>
+                <small>JPG, PNG, WEBP up to 10MB</small>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Movie Video File</label>
+              <div class="upload-area" onclick="showToast('info','Upload','Video upload ready in production')">
+                <div class="upload-area-icon">🎞</div>
+                <p>Drag & drop video file here</p>
+                <small>MP4, MKV, WebM up to 50GB</small>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:1.5rem">
+            <button class="btn btn-primary" onclick="adminAddMovie()">
+              ✓ Add Movie to Library
+            </button>
+            <button class="btn btn-secondary" onclick="switchAdminPane('movies')">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES PANE -->
+      <div class="admin-pane" id="pane-categories">
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>CATEGORIES</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Category</th><th>Movies</th><th>Views</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td>🎬 Action</td><td>1,243</td><td>4.2M</td><td><div class="table-actions"><button class="table-action-btn edit">✏</button><button class="table-action-btn delete">🗑</button></div></td></tr>
+              <tr><td>😂 Comedy</td><td>987</td><td>2.8M</td><td><div class="table-actions"><button class="table-action-btn edit">✏</button><button class="table-action-btn delete">🗑</button></div></td></tr>
+              <tr><td>👻 Horror</td><td>654</td><td>1.9M</td><td><div class="table-actions"><button class="table-action-btn edit">✏</button><button class="table-action-btn delete">🗑</button></div></td></tr>
+              <tr><td>🎭 Drama</td><td>2,108</td><td>5.6M</td><td><div class="table-actions"><button class="table-action-btn edit">✏</button><button class="table-action-btn delete">🗑</button></div></td></tr>
+              <tr><td>🚀 Sci-Fi</td><td>876</td><td>3.1M</td><td><div class="table-actions"><button class="table-action-btn edit">✏</button><button class="table-action-btn delete">🗑</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- USERS PANE -->
+      <div class="admin-pane" id="pane-users">
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>USER MANAGEMENT</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Email</th><th>Joined</th><th>Plan</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="adminUsersTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- COMMENTS PANE -->
+      <div class="admin-pane" id="pane-comments">
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>COMMENT MODERATION</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Movie</th><th>Comment</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td>Sarah K.</td><td>Inception</td><td>"Absolutely mind-blowing film..."</td><td>Today</td><td><span class="badge badge-green">Approved</span></td><td><div class="table-actions"><button class="table-action-btn edit" onclick="showToast('info','Action','Comment edited')">✏</button><button class="table-action-btn delete" onclick="showToast('warning','Deleted','Comment removed')">🗑</button></div></td></tr>
+              <tr><td>Mike J.</td><td>Avengers</td><td>"Best MCU movie ever made..."</td><td>Yesterday</td><td><span class="badge badge-gold">Pending</span></td><td><div class="table-actions"><button class="table-action-btn edit" onclick="showToast('success','Approved','Comment approved')">✓</button><button class="table-action-btn delete" onclick="showToast('warning','Rejected','Comment rejected')">✗</button></div></td></tr>
+              <tr><td>Anna M.</td><td>Parasite</td><td>"A masterpiece of cinema..."</td><td>2 days ago</td><td><span class="badge badge-green">Approved</span></td><td><div class="table-actions"><button class="table-action-btn edit">✏</button><button class="table-action-btn delete">🗑</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MODAL: TRAILER
+═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="trailerModal" onclick="closeModal('trailerModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('trailerModal')">✕</button>
+    <h2>OFFICIAL TRAILER</h2>
+    <div class="modal-movie-header">
+      <div class="modal-poster" id="modalTrailerPoster">🎬</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:1.3rem;letter-spacing:1px" id="modalTrailerTitle"></div>
+        <div style="font-size:0.85rem;color:var(--c-text2);margin-top:4px" id="modalTrailerMeta"></div>
+      </div>
+    </div>
+    <div class="trailer-wrap">
+      <div style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:1rem">🎥</div>
+        <p style="color:var(--c-text2)">Trailer would play here in production</p>
+        <p style="font-size:0.8rem;color:var(--c-text3);margin-top:0.5rem">Integrate YouTube/Vimeo embed</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+// ═══════════════════════════════════════════════════
+// DATA - MOVIE DATABASE
+// ═══════════════════════════════════════════════════
+const MOVIES = [
+  { id:1, title:'Inception', subtitle:'THE DREAM', emoji:'🌀', genre:'Sci-Fi', type:'Movie', year:2010, duration:148, rating:8.8, views:'24M', quality:'4K', desc:'A skilled thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.', cast:['Leonardo DiCaprio','Joseph Gordon-Levitt','Ellen Page','Tom Hardy','Ken Watanabe'], director:'Christopher Nolan', trending:true, topRated:true, featured:true },
+  { id:2, title:'The Dark Knight', subtitle:'RISES', emoji:'🦇', genre:'Action', type:'Movie', year:2008, duration:152, rating:9.0, views:'31M', quality:'4K', desc:'When the menace known as the Joker wreaks havoc and chaos on Gotham, Batman must accept one of the greatest psychological and physical tests.', cast:['Christian Bale','Heath Ledger','Aaron Eckhart','Michael Caine','Maggie Gyllenhaal'], director:'Christopher Nolan', trending:true, topRated:true, featured:true },
+  { id:3, title:'Interstellar', subtitle:'BEYOND THE STARS', emoji:'🪐', genre:'Sci-Fi', type:'Movie', year:2014, duration:169, rating:8.6, views:'19M', quality:'4K', desc:'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.', cast:['Matthew McConaughey','Anne Hathaway','Jessica Chastain','Bill Irwin','Ellen Burstyn'], director:'Christopher Nolan', trending:false, topRated:true, featured:true },
+  { id:4, title:'Parasite', subtitle:'', emoji:'🏠', genre:'Thriller', type:'Movie', year:2019, duration:132, rating:8.5, views:'14M', quality:'1080p', desc:'Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.', cast:['Song Kang-ho','Lee Sun-kyun','Cho Yeo-jeong','Choi Woo-shik','Park So-dam'], director:'Bong Joon-ho', trending:true, topRated:true, featured:false },
+  { id:5, title:'Avengers: Endgame', subtitle:'ENDGAME', emoji:'⚡', genre:'Action', type:'Movie', year:2019, duration:181, rating:8.4, views:'45M', quality:'4K', desc:'After the devastating events of Avengers: Infinity War, the universe is in ruins. Faced with a broken world, the Avengers assemble for a final showdown.', cast:['Robert Downey Jr.','Chris Evans','Mark Ruffalo','Chris Hemsworth','Scarlett Johansson'], director:'Anthony & Joe Russo', trending:true, topRated:false, featured:true },
+  { id:6, title:'Dune', subtitle:'PART TWO', emoji:'🏜', genre:'Sci-Fi', type:'Movie', year:2024, duration:166, rating:8.8, views:'18M', quality:'4K', desc:'Paul Atreides unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family.', cast:['Timothée Chalamet','Zendaya','Rebecca Ferguson','Josh Brolin','Austin Butler'], director:'Denis Villeneuve', trending:true, topRated:true, featured:true },
+  { id:7, title:'Spirited Away', subtitle:'', emoji:'🌊', genre:'Animation', type:'Anime', year:2001, duration:125, rating:8.6, views:'12M', quality:'1080p', desc:'During her family\'s move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits.', cast:['Daveigh Chase','Suzanne Pleshette','Miyu Irino','Rumi Hiiragi'], director:'Hayao Miyazaki', trending:false, topRated:true, featured:false },
+  { id:8, title:'Fight Club', subtitle:'', emoji:'🥊', genre:'Drama', type:'Movie', year:1999, duration:139, rating:8.8, views:'21M', quality:'4K', desc:'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much more sinister.', cast:['Brad Pitt','Edward Norton','Helena Bonham Carter','Meat Loaf','Jared Leto'], director:'David Fincher', trending:false, topRated:true, featured:false },
+  { id:9, title:'The Shawshank Redemption', subtitle:'', emoji:'🔒', genre:'Drama', type:'Movie', year:1994, duration:142, rating:9.3, views:'16M', quality:'1080p', desc:'Two imprisoned men bond over several years, finding solace and eventual redemption through acts of common decency.', cast:['Tim Robbins','Morgan Freeman','Bob Gunton','William Sadler','Clancy Brown'], director:'Frank Darabont', trending:false, topRated:true, featured:false },
+  { id:10, title:'Oppenheimer', subtitle:'', emoji:'☢', genre:'Drama', type:'Movie', year:2023, duration:180, rating:8.9, views:'22M', quality:'4K', desc:'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.', cast:['Cillian Murphy','Emily Blunt','Matt Damon','Robert Downey Jr.','Florence Pugh'], director:'Christopher Nolan', trending:true, topRated:true, featured:true },
+  { id:11, title:'Joker', subtitle:'FOLIE À DEUX', emoji:'🃏', genre:'Thriller', type:'Movie', year:2024, duration:138, rating:5.5, views:'9M', quality:'4K', desc:'The sequel follows Arthur Fleck as he discovers love while in Arkham State Hospital and awaits trial for being the Joker.', cast:['Joaquin Phoenix','Lady Gaga','Brendan Gleeson'], director:'Todd Phillips', trending:true, topRated:false, featured:false },
+  { id:12, title:'Demon Slayer', subtitle:'MUGEN TRAIN', emoji:'⚔', genre:'Action', type:'Anime', year:2020, duration:117, rating:8.2, views:'17M', quality:'4K', desc:'Tanjiro and his friends embark on a new mission aboard the Mugen Train, where over 40 people have mysteriously vanished.', cast:['Natsuki Hanae','Akari Kitô','Yoshitsugu Matsuoka'], director:'Haruo Sotozaki', trending:true, topRated:false, featured:false },
+  { id:13, title:'Breaking Bad', subtitle:'SEASON 1', emoji:'⚗', genre:'Thriller', type:'TV', year:2008, duration:47, rating:9.5, views:'38M', quality:'4K', desc:'A high school chemistry teacher dying of cancer teams with a former student to secure his family\'s future by manufacturing and selling methamphetamine.', cast:['Bryan Cranston','Aaron Paul','Anna Gunn','Dean Norris'], director:'Vince Gilligan', trending:false, topRated:true, featured:false },
+  { id:14, title:'Stranger Things', subtitle:'SEASON 4', emoji:'🔦', genre:'Sci-Fi', type:'TV', year:2022, duration:75, rating:8.7, views:'29M', quality:'4K', desc:'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.', cast:['Millie Bobby Brown','Finn Wolfhard','Winona Ryder','David Harbour'], director:'The Duffer Brothers', trending:true, topRated:false, featured:false },
+  { id:15, title:'The Godfather', subtitle:'', emoji:'🌹', genre:'Drama', type:'Movie', year:1972, duration:175, rating:9.2, views:'11M', quality:'4K', desc:'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant youngest son.', cast:['Marlon Brando','Al Pacino','James Caan','Richard Castellano','Robert Duvall'], director:'Francis Ford Coppola', trending:false, topRated:true, featured:false },
+  { id:16, title:'Mad Max: Fury Road', subtitle:'', emoji:'💥', genre:'Action', type:'Movie', year:2015, duration:120, rating:8.1, views:'13M', quality:'4K', desc:'In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners.', cast:['Tom Hardy','Charlize Theron','Nicholas Hoult'], director:'George Miller', trending:false, topRated:false, featured:false },
+  { id:17, title:'La La Land', subtitle:'', emoji:'🎹', genre:'Romance', type:'Movie', year:2016, duration:128, rating:8.0, views:'8M', quality:'1080p', desc:'While navigating their careers in Los Angeles, a pianist and an actress fall in love while attempting to reconcile their aspirations for the future.', cast:['Ryan Gosling','Emma Stone','John Legend'], director:'Damien Chazelle', trending:false, topRated:false, featured:false },
+  { id:18, title:'Black Mirror', subtitle:'SEASON 6', emoji:'📱', genre:'Sci-Fi', type:'TV', year:2023, duration:60, rating:7.8, views:'11M', quality:'4K', desc:'An anthology series exploring a twisted, high-tech near-future where humanity\'s greatest innovations and darkest instincts collide.', cast:['Various Cast'], director:'Charlie Brooker', trending:true, topRated:false, featured:false },
+  { id:19, title:'The Batman', subtitle:'', emoji:'🦇', genre:'Action', type:'Movie', year:2022, duration:176, rating:7.9, views:'20M', quality:'4K', desc:'When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city\'s hidden corruption.', cast:['Robert Pattinson','Zoë Kravitz','Paul Dano','Jeffrey Wright'], director:'Matt Reeves', trending:false, topRated:false, featured:false },
+  { id:20, title:'Everything Everywhere All At Once', subtitle:'', emoji:'🌌', genre:'Comedy', type:'Movie', year:2022, duration:139, rating:7.8, views:'7M', quality:'1080p', desc:'An aging Chinese immigrant is swept up in an insane adventure, where she alone can save the world by exploring other universes connecting with the lives she could have led.', cast:['Michelle Yeoh','Stephanie Hsu','Ke Huy Quan','Jamie Lee Curtis'], director:'Daniels', trending:false, topRated:false, featured:false }
+];
+
+const CATEGORIES = [
+  { name:'Action', emoji:'💥', count:'1.2K', class:'cat-action' },
+  { name:'Comedy', emoji:'😂', count:'987', class:'cat-comedy' },
+  { name:'Horror', emoji:'👻', count:'654', class:'cat-horror' },
+  { name:'Drama', emoji:'🎭', count:'2.1K', class:'cat-drama' },
+  { name:'Sci-Fi', emoji:'🚀', count:'876', class:'cat-scifi' },
+  { name:'Adventure', emoji:'🗺', count:'543', class:'cat-adventure' },
+  { name:'Animation', emoji:'✨', count:'432', class:'cat-animation' },
+  { name:'Thriller', emoji:'😱', count:'765', class:'cat-thriller' },
+  { name:'Romance', emoji:'💕', count:'321', class:'cat-romance' },
+  { name:'Documentary', emoji:'📽', count:'289', class:'cat-drama' }
+];
+
+const SAMPLE_USERS = [
+  { name:'Sarah Johnson', email:'sarah.j@mail.com', joined:'Jan 2024', plan:'Premium', status:'Active' },
+  { name:'Mike Chen', email:'mike.c@mail.com', joined:'Mar 2024', plan:'Basic', status:'Active' },
+  { name:'Anna Martinez', email:'anna.m@mail.com', joined:'Dec 2023', plan:'Premium', status:'Active' },
+  { name:'Tom Brown', email:'tom.b@mail.com', joined:'Feb 2024', plan:'Free', status:'Inactive' },
+  { name:'Emily Davis', email:'emily.d@mail.com', joined:'Apr 2024', plan:'Premium', status:'Active' }
+];
+
+const I18N = {
+  en: { home:'Home', browse:'Browse', movies:'Movies', trending:'Trending Now', latest:'Latest Releases' },
+  es: { home:'Inicio', browse:'Explorar', movies:'Películas', trending:'En Tendencia', latest:'Últimos Estrenos' },
+  fr: { home:'Accueil', browse:'Parcourir', movies:'Films', trending:'Tendances', latest:'Dernières Sorties' },
+  de: { home:'Startseite', browse:'Durchsuchen', movies:'Filme', trending:'Trending', latest:'Neueste Filme' },
+  ja: { home:'ホーム', browse:'ブラウズ', movies:'映画', trending:'トレンド', latest:'最新作' },
+  uz: { home:'Bosh sahifa', browse:'Ko\'rish', movies:'Filmlar', trending:'Trend', latest:'Yangi Chiqishlar' }
+};
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let state = {
+  currentPage: 'home',
+  user: null,
+  theme: 'dark',
+  lang: 'en',
+  wishlist: [1,3,6,10],
+  history: [2,5,8,10,1],
+  continueWatching: [{ id:2, progress:65 }, { id:5, progress:30 }, { id:8, progress:82 }],
+  currentMovie: null,
+  heroIndex: 0,
+  heroTimer: null,
+  reviewStars: 0,
+  browseFilter: { genre:'', year:'', sort:'popular', type:'' },
+  movies: [...MOVIES],
+  playProgress: 35,
+  playing: false,
+  volume: 70,
+  playTimer: null
+};
+
+let currentPlayingId = 1;
+
+// ═══════════════════════════════════════════════════
+// PAGE ROUTING
+// ═══════════════════════════════════════════════════
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-'+page);
+  if(el) el.classList.add('active');
+  state.currentPage = page;
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.page === page);
+  });
+  window.scrollTo(0,0);
+  if(page === 'home') initHome();
+  if(page === 'browse') initBrowse();
+  if(page === 'profile') initProfile();
+  if(page === 'admin') initAdmin();
+  if(page === 'search') document.getElementById('searchInput')?.focus();
+  if(page !== 'admin') document.getElementById('nav').classList.remove('hidden');
+}
+
+function showBrowse(type) {
+  state.browseFilter.type = type;
+  showPage('browse');
+  document.getElementById('browseTitle').textContent = type === 'Movie' ? 'MOVIES' : type === 'TV' ? 'TV SHOWS' : type === 'Anime' ? 'ANIME' : 'BROWSE ALL';
+  initBrowse();
+}
+
+// ═══════════════════════════════════════════════════
+// HOME PAGE
+// ═══════════════════════════════════════════════════
+function initHome() {
+  buildHero();
+  buildMoviesRow('trendingRow', MOVIES.filter(m=>m.trending), 'card');
+  buildMoviesRow('latestRow', MOVIES.filter(m=>m.featured), 'featured');
+  buildTopRated();
+  buildCategories();
+  buildMoviesRow('newArrivalsRow', [...MOVIES].sort(()=>Math.random()-0.5).slice(0,10), 'card');
+  if(state.user) {
+    document.getElementById('recBanner').style.display = '';
+    document.getElementById('continueWatchingSection').style.display = '';
+    buildMoviesRow('recRow', MOVIES.slice(0,6), 'card');
+    buildContinueWatching();
+  }
+  startHeroRotation();
+}
+
+// HERO
+const heroMovies = [2,6,1,10,5];
+function buildHero() {
+  const slidesEl = document.getElementById('heroSlides');
+  const indicatorsEl = document.getElementById('heroIndicators');
+  slidesEl.innerHTML = '';
+  indicatorsEl.innerHTML = '';
+  heroMovies.forEach((mid, i) => {
+    const m = MOVIES.find(x=>x.id===mid);
+    const slide = document.createElement('div');
+    slide.className = 'hero-slide' + (i===0?' active':'');
+    slide.innerHTML = `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a0a14,#1a0a2e);display:flex;align-items:center;justify-content:center;font-size:15vw;opacity:0.15">${m.emoji}</div>`;
+    slidesEl.appendChild(slide);
+    const dot = document.createElement('div');
+    dot.className = 'hero-dot'+(i===0?' active':'');
+    dot.onclick = () => goHeroSlide(i);
+    indicatorsEl.appendChild(dot);
+  });
+  updateHeroContent(0);
+}
+
+function updateHeroContent(idx) {
+  const m = MOVIES.find(x=>x.id===heroMovies[idx]);
+  if(!m) return;
+  document.getElementById('heroLine1').textContent = m.title;
+  document.getElementById('heroLine2').textContent = m.subtitle || '';
+  document.getElementById('heroDesc').textContent = m.desc;
+  document.getElementById('heroMeta').innerHTML = `
+    <span class="badge badge-red">NEW</span>
+    <span class="badge badge-gold">⭐ ${m.rating}/10</span>
+    <span class="badge badge-blue">${m.year}</span>
+    <span class="badge badge-green">${m.quality}</span>
+    <span style="color:var(--c-text2);font-size:0.85rem">${m.genre} • ${formatDur(m.duration)}</span>
+  `;
+  document.getElementById('heroWatchBtn').onclick = () => playMovie(m.id);
+  document.getElementById('heroInfoBtn').onclick = () => showDetail(m.id);
+}
+
+function goHeroSlide(idx) {
+  document.querySelectorAll('.hero-slide').forEach((s,i)=>s.classList.toggle('active',i===idx));
+  document.querySelectorAll('.hero-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  state.heroIndex = idx;
+  updateHeroContent(idx);
+}
+
+function startHeroRotation() {
+  clearInterval(state.heroTimer);
+  state.heroTimer = setInterval(() => {
+    const next = (state.heroIndex+1) % heroMovies.length;
+    goHeroSlide(next);
+  }, 6000);
+}
+
+// MOVIE ROWS
+function buildMoviesRow(elId, movies, mode='card') {
+  const el = document.getElementById(elId);
+  if(!el) return;
+  el.innerHTML = '';
+  movies.forEach(m => {
+    if(mode === 'featured') {
+      el.appendChild(buildFeaturedCard(m));
+    } else {
+      el.appendChild(buildMovieCard(m));
+    }
+  });
+}
+
+function buildMovieCard(m) {
+  const div = document.createElement('div');
+  div.className = 'movie-card';
+  div.onclick = () => showDetail(m.id);
+  const inWish = state.wishlist.includes(m.id);
+  div.innerHTML = `
+    <div class="movie-card-poster">
+      <div style="font-size:4rem;display:flex;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,var(--c-surface),var(--c-bg3))">${m.emoji}</div>
+      <div class="movie-card-overlay">
+        <div class="movie-card-overlay-title">${m.title}</div>
+        <div class="movie-card-overlay-btns">
+          <button class="card-btn card-btn-play" onclick="event.stopPropagation();playMovie(${m.id})">▶</button>
+          <button class="card-btn card-btn-add" onclick="event.stopPropagation();toggleWishlist(${m.id},this)" title="${inWish?'Remove from':'Add to'} wishlist">${inWish?'♥':'♡'}</button>
+        </div>
+      </div>
+      ${m.trending ? '<div class="movie-card-new"><span class="badge badge-red">🔥 HOT</span></div>' : ''}
+      <div class="movie-card-quality">${m.quality}</div>
+    </div>
+    <div class="movie-card-info">
+      <div class="movie-card-title">${m.title}</div>
+      <div class="movie-card-sub">
+        <span class="movie-card-rating">⭐ ${m.rating}</span>
+        <span>${m.year}</span>
+        <span>${m.genre}</span>
+      </div>
+    </div>
+  `;
+  return div;
+}
+
+function buildFeaturedCard(m) {
+  const div = document.createElement('div');
+  div.className = 'movie-card-featured';
+  div.onclick = () => showDetail(m.id);
+  div.innerHTML = `
+    <div class="movie-card-featured-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#0d0d1a,#1a1030);display:flex;align-items:center;justify-content:center;font-size:8rem;opacity:0.4">${m.emoji}</div>
+    <div class="movie-card-featured-overlay">
+      <div class="movie-card-featured-title">${m.title}</div>
+      <div class="movie-card-featured-meta">
+        <span class="badge badge-gold" style="font-size:10px">⭐ ${m.rating}</span>
+        <span>${m.year}</span>
+        <span>${m.genre}</span>
+        <span>${formatDur(m.duration)}</span>
+      </div>
+    </div>
+  `;
+  return div;
+}
+
+function buildTopRated() {
+  const el = document.getElementById('topRatedGrid');
+  if(!el) return;
+  el.innerHTML = '';
+  const movies = MOVIES.filter(m=>m.topRated).sort((a,b)=>b.rating-a.rating).slice(0,8);
+  movies.forEach((m,i) => {
+    const div = document.createElement('div');
+    div.className = 'top-rated-card';
+    div.onclick = () => showDetail(m.id);
+    div.innerHTML = `
+      <div class="top-rated-rank">${String(i+1).padStart(2,'0')}</div>
+      <div class="top-rated-poster" style="background:linear-gradient(135deg,var(--c-surface),var(--c-bg3))">${m.emoji}</div>
+      <div class="top-rated-info">
+        <div class="top-rated-title">${m.title}</div>
+        <div class="top-rated-meta">${m.year} • ${m.genre} • ${formatDur(m.duration)}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="color:var(--c-gold);font-size:0.85rem;font-weight:700">⭐ ${m.rating}</span>
+          <span style="font-size:0.75rem;color:var(--c-text3)">${m.views} views</span>
+        </div>
+        <div class="top-rated-bar"><div class="top-rated-bar-fill" style="width:${m.rating*10}%"></div></div>
+      </div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function buildCategories() {
+  const el = document.getElementById('categoriesGrid');
+  if(!el) return;
+  el.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = `category-card ${cat.class}`;
+    div.onclick = () => { state.browseFilter.genre = cat.name; showBrowse(''); };
+    div.innerHTML = `
+      <div class="category-card-icon">${cat.emoji}</div>
+      <div class="category-card-name">${cat.name}</div>
+      <div class="category-card-count">${cat.count} titles</div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function buildContinueWatching() {
+  const el = document.getElementById('continueGrid');
+  if(!el) return;
+  el.innerHTML = '';
+  state.continueWatching.slice(0,4).forEach(cw => {
+    const m = MOVIES.find(x=>x.id===cw.id);
+    if(!m) return;
+    const div = document.createElement('div');
+    div.className = 'continue-watching-card';
+    div.onclick = () => playMovie(m.id);
+    div.innerHTML = `
+      <div class="continue-thumb">
+        <div style="font-size:3rem">${m.emoji}</div>
+        <div class="continue-progress"><div class="continue-progress-fill" style="width:${cw.progress}%"></div></div>
+        <div class="continue-play"><div style="width:44px;height:44px;border-radius:50%;background:var(--c-accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:white">▶</div></div>
+      </div>
+      <div class="continue-info">
+        <div class="continue-title">${m.title}</div>
+        <div class="continue-meta">${cw.progress}% watched • ${formatDur(m.duration)}</div>
+      </div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// BROWSE PAGE
+// ═══════════════════════════════════════════════════
+let browseMovies = [...MOVIES];
+function initBrowse() {
+  applyFilters();
+  populateFilterTags();
+}
+
+function populateFilterTags() {
+  const el = document.getElementById('filterTags');
+  if(!el) return;
+  el.innerHTML = '';
+  ['Trending','Top Rated','New','4K'].forEach(tag => {
+    const div = document.createElement('div');
+    div.className = 'filter-tag';
+    div.textContent = tag;
+    div.onclick = () => {
+      div.classList.toggle('active');
+      applyFilters();
+    };
+    el.appendChild(div);
+  });
+}
+
+function applyFilters() {
+  const genre = document.getElementById('filterGenre')?.value || '';
+  const year = document.getElementById('filterYear')?.value || '';
+  const sort = document.getElementById('filterSort')?.value || 'popular';
+  let movies = [...state.movies];
+  if(state.browseFilter.type) movies = movies.filter(m=>m.type===state.browseFilter.type);
+  if(genre) movies = movies.filter(m=>m.genre===genre);
+  if(year) movies = movies.filter(m=>m.year===parseInt(year));
+  if(sort==='rating') movies.sort((a,b)=>b.rating-a.rating);
+  else if(sort==='newest') movies.sort((a,b)=>b.year-a.year);
+  else if(sort==='az') movies.sort((a,b)=>a.title.localeCompare(b.title));
+  browseMovies = movies;
+  renderBrowseGrid(movies.slice(0,20));
+  document.getElementById('browseCount').textContent = `${movies.length} titles`;
+}
+
+function renderBrowseGrid(movies) {
+  const el = document.getElementById('browseGrid');
+  if(!el) return;
+  el.innerHTML = '';
+  movies.forEach(m => el.appendChild(buildMovieCard(m)));
+}
+
+function loadMoreMovies() {
+  const current = document.querySelectorAll('#browseGrid .movie-card').length;
+  const next = browseMovies.slice(current, current+12);
+  const el = document.getElementById('browseGrid');
+  next.forEach(m => el.appendChild(buildMovieCard(m)));
+  if(current+12 >= browseMovies.length) {
+    document.getElementById('browseLoadMore').style.display = 'none';
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════
+function handleNavSearch(val) {
+  if(val.length > 0) {
+    showPage('search');
+    document.getElementById('searchInput').value = val;
+    doSearch(val);
+  }
+}
+
+function doSearch(val) {
+  const q = val.toLowerCase().trim();
+  const el = document.getElementById('searchGrid');
+  const empty = document.getElementById('searchEmpty');
+  const info = document.getElementById('searchResultsInfo');
+  if(!q) {
+    el.innerHTML=''; empty.classList.add('hidden'); info.innerHTML=''; return;
+  }
+  const results = MOVIES.filter(m=>
+    m.title.toLowerCase().includes(q) ||
+    m.genre.toLowerCase().includes(q) ||
+    m.desc.toLowerCase().includes(q) ||
+    String(m.year).includes(q)
+  );
+  if(results.length === 0) {
+    el.innerHTML=''; empty.classList.remove('hidden');
+    info.innerHTML = '';
+  } else {
+    empty.classList.add('hidden');
+    info.innerHTML = `Showing <strong>${results.length}</strong> results for "<strong>${val}</strong>"`;
+    el.innerHTML = '';
+    results.forEach(m => el.appendChild(buildMovieCard(m)));
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// MOVIE DETAIL
+// ═══════════════════════════════════════════════════
+function showDetail(id) {
+  const m = MOVIES.find(x=>x.id===id);
+  if(!m) return;
+  state.currentMovie = m;
+  showPage('detail');
+  // BG
+  document.getElementById('detailBg').style.background = `linear-gradient(135deg,#0a0a14,#1a0a2e)`;
+  document.getElementById('detailBg').innerHTML = `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:25vw;opacity:0.08">${m.emoji}</div>`;
+  // Poster
+  document.getElementById('detailPoster').innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c-surface),var(--c-bg3));font-size:5rem">${m.emoji}</div>`;
+  // Meta
+  document.getElementById('detailMetaRow').innerHTML = `
+    <span class="badge badge-gold">⭐ IMDb ${m.rating}</span>
+    <span class="badge badge-blue">${m.year}</span>
+    <span class="badge badge-red">${m.quality}</span>
+    <span style="font-size:0.85rem;color:var(--c-text2)">${m.type}</span>
+  `;
+  document.getElementById('detailTitle').textContent = m.title;
+  document.getElementById('detailGenres').innerHTML = m.genre.split(',').map(g=>`<span class="badge badge-purple">${g.trim()}</span>`).join('');
+  document.getElementById('detailDesc').textContent = m.desc;
+  // Actions
+  const inWish = state.wishlist.includes(m.id);
+  document.getElementById('detailActions').innerHTML = `
+    <button class="btn btn-primary" onclick="playMovie(${m.id})">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Watch Now
+    </button>
+    <button class="btn btn-secondary" onclick="openTrailer(${m.id})">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+      Trailer
+    </button>
+    <button class="btn btn-secondary" id="detailWishBtn" onclick="toggleWishlist(${m.id},this)">
+      ${inWish?'♥ In Wishlist':'♡ Add to Wishlist'}
+    </button>
+  `;
+  // Stats
+  document.getElementById('detailStats').innerHTML = `
+    <div class="detail-stat-item"><div class="detail-stat-val">${m.year}</div><div class="detail-stat-label">Year</div></div>
+    <div class="detail-stat-item"><div class="detail-stat-val">${formatDur(m.duration)}</div><div class="detail-stat-label">Duration</div></div>
+    <div class="detail-stat-item"><div class="detail-stat-val">${m.views}</div><div class="detail-stat-label">Views</div></div>
+    <div class="detail-stat-item"><div class="detail-stat-val" style="color:var(--c-gold)">${m.rating}</div><div class="detail-stat-label">Rating</div></div>
+  `;
+  // Cast
+  const castEl = document.getElementById('detailCast');
+  castEl.innerHTML = '';
+  (m.cast||[]).forEach(name => {
+    const initials = name.split(' ').map(n=>n[0]).join('').slice(0,2);
+    const colors = ['#e84b6e','#4b8be8','#9b6ee8','#4be8a0','#e8b84b'];
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    const div = document.createElement('div');
+    div.className = 'cast-card';
+    div.innerHTML = `<div class="cast-avatar" style="background:linear-gradient(135deg,${color},${color}88)">${initials}</div><div class="cast-name">${name}</div><div class="cast-role">Cast</div>`;
+    castEl.appendChild(div);
+  });
+  // Related
+  const related = MOVIES.filter(x=>x.id!==m.id&&(x.genre===m.genre||x.type===m.type)).slice(0,8);
+  buildMoviesRow('relatedMovies', related, 'card');
+  // Movie info table
+  document.getElementById('movieInfoTable').innerHTML = `
+    <table style="width:100%;font-size:0.875rem">
+      ${[['Director',m.director],['Genre',m.genre],['Type',m.type],['Duration',formatDur(m.duration)],['Release Year',m.year],['Quality',m.quality],['Language','English']].map(([k,v])=>`<tr><td style="color:var(--c-text3);padding:8px 0;border-bottom:1px solid var(--c-border)">${k}</td><td style="text-align:right;padding:8px 0;border-bottom:1px solid var(--c-border);font-weight:500">${v||'—'}</td></tr>`).join('')}
+    </table>
+  `;
+  // Reviews
+  buildReviews(m.id);
+}
+
+function buildReviews(movieId) {
+  const sampleReviews = [
+    { user:'Sarah K.', initials:'SK', rating:5, title:'Masterpiece!', text:'Absolutely incredible. This movie redefined the genre and left me speechless. The cinematography and performances are on another level.', date:'2 days ago' },
+    { user:'Mike J.', initials:'MJ', rating:4, title:'Great film', text:'Really enjoyed it. A few slow moments but overall a fantastic experience. Would definitely recommend.', date:'1 week ago' }
+  ];
+  const el = document.getElementById('reviewsList');
+  el.innerHTML = '';
+  sampleReviews.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'review-card';
+    div.innerHTML = `
+      <div class="review-header">
+        <div class="review-avatar">${r.initials}</div>
+        <div>
+          <div class="review-name">${r.user}</div>
+          <div class="review-date">${r.date}</div>
+        </div>
+        <div class="review-stars" style="margin-left:auto">
+          ${'⭐'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}
+        </div>
+      </div>
+      <div style="font-weight:600;margin-bottom:6px;font-size:0.9rem">${r.title}</div>
+      <div class="review-text">${r.text}</div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function setReviewStar(n) {
+  state.reviewStars = n;
+  document.querySelectorAll('.star-btn').forEach((btn,i) => {
+    btn.classList.toggle('active', i < n);
+  });
+}
+
+function submitReview() {
+  if(!state.user) { showPage('login'); showToast('info','Sign In','Please sign in to leave a review'); return; }
+  const title = document.getElementById('reviewTitle').value;
+  const text = document.getElementById('reviewText').value;
+  if(!title || !text || !state.reviewStars) {
+    showToast('warning','Incomplete','Please fill in all fields and select a rating'); return;
+  }
+  showToast('success','Review Posted','Your review has been submitted!');
+  document.getElementById('reviewTitle').value = '';
+  document.getElementById('reviewText').value = '';
+  state.reviewStars = 0;
+  document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('active'));
+}
+
+// ═══════════════════════════════════════════════════
+// PLAYER
+// ═══════════════════════════════════════════════════
+function playMovie(id) {
+  const m = MOVIES.find(x=>x.id===id);
+  if(!m) return;
+  if(!state.user) {
+    showToast('info','Sign In Required','Please sign in to watch movies');
+    showPage('login');
+    return;
+  }
+  currentPlayingId = id;
+  state.currentMovie = m;
+  state.playing = false;
+  state.playProgress = 35;
+  showPage('player');
+  document.getElementById('playerMovieTitle').textContent = m.title;
+  document.getElementById('playerTitleBar').textContent = m.title;
+  document.getElementById('playerDetailTitle').textContent = m.title;
+  document.getElementById('playerDetailDesc').textContent = m.desc;
+  document.getElementById('playerDetailMeta').innerHTML = `
+    <span class="badge badge-gold">⭐ ${m.rating}</span>
+    <span class="badge badge-blue">${m.year}</span>
+    <span class="badge badge-green">${m.quality}</span>
+    <span style="color:var(--c-text2);font-size:0.85rem">${formatDur(m.duration)}</span>
+  `;
+  document.getElementById('progressFill').style.width = state.playProgress + '%';
+  const mins = Math.floor(m.duration * state.playProgress / 100);
+  document.getElementById('playerTime').textContent = `${formatTime(mins*60)} / ${formatTime(m.duration*60)}`;
+  // Up next
+  const upNext = MOVIES.filter(x=>x.id!==id).slice(0,5);
+  const un = document.getElementById('upNextList');
+  un.innerHTML = '';
+  upNext.forEach(um => {
+    const div = document.createElement('div');
+    div.className = 'up-next-card';
+    div.onclick = () => playMovie(um.id);
+    div.innerHTML = `
+      <div class="up-next-thumb">${um.emoji}</div>
+      <div class="up-next-info">
+        <div class="up-next-movie-title">${um.title}</div>
+        <div class="up-next-movie-meta">${um.year} • ${formatDur(um.duration)}</div>
+      </div>
+    `;
+    un.appendChild(div);
+  });
+  // Add to history
+  if(!state.history.includes(id)) state.history.unshift(id);
+  showToast('success','Now Playing',`${m.title} — Enjoy!`);
+}
+
+function showCurrentDetail() {
+  if(state.currentMovie) showDetail(state.currentMovie.id);
+}
+
+function simulatePlay() {
+  document.getElementById('playerPlaceholder').style.display = 'none';
+  state.playing = true;
+  document.getElementById('playPauseBtn').textContent = '⏸';
+  startProgressTimer();
+  showToast('success','Playing','Video stream started');
+}
+
+function togglePlay() {
+  state.playing = !state.playing;
+  document.getElementById('playPauseBtn').textContent = state.playing ? '⏸' : '▶';
+  if(state.playing) startProgressTimer(); else clearInterval(state.playTimer);
+}
+
+function startProgressTimer() {
+  clearInterval(state.playTimer);
+  state.playTimer = setInterval(() => {
+    if(state.playProgress < 100) {
+      state.playProgress += 0.1;
+      document.getElementById('progressFill').style.width = state.playProgress + '%';
+      const m = state.currentMovie;
+      const secs = m ? Math.floor(m.duration * 60 * state.playProgress / 100) : 0;
+      document.getElementById('playerTime').textContent = `${formatTime(secs)} / ${formatTime(m ? m.duration*60 : 0)}`;
+    }
+  }, 500);
+}
+
+function seekPlayer(e) {
+  const bar = e.currentTarget;
+  const rect = bar.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
+  state.playProgress = pct;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function skipBack() { state.playProgress = Math.max(0, state.playProgress - 2); document.getElementById('progressFill').style.width = state.playProgress + '%'; }
+function skipForward() { state.playProgress = Math.min(100, state.playProgress + 2); document.getElementById('progressFill').style.width = state.playProgress + '%'; }
+
+function toggleMute() {
+  state.volume = state.volume > 0 ? 0 : 70;
+  document.getElementById('muteBtn').textContent = state.volume > 0 ? '🔊' : '🔇';
+  document.getElementById('volFill').style.width = state.volume + '%';
+}
+
+function setVolume(e) {
+  const bar = e.currentTarget;
+  const rect = bar.getBoundingClientRect();
+  state.volume = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
+  document.getElementById('volFill').style.width = state.volume + '%';
+  document.getElementById('muteBtn').textContent = state.volume > 0 ? '🔊' : '🔇';
+}
+
+function toggleFullscreen() {
+  const el = document.getElementById('playerContainer');
+  if(!document.fullscreenElement) {
+    el.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+function setQuality(q) {
+  document.getElementById('qualityBtn').textContent = q;
+  toggleDropdown('qualityDrop');
+  showToast('info','Quality Changed',`Video quality set to ${q}`);
+}
+
+function setSub(s) {
+  toggleDropdown('subDrop');
+  showToast('info','Subtitles',`Subtitles: ${s}`);
+}
+
+function setSpeed(s) {
+  document.getElementById('speedBtn').textContent = s+'x';
+  toggleDropdown('speedDrop');
+  showToast('info','Playback Speed',`Speed set to ${s}x`);
+}
+
+// ═══════════════════════════════════════════════════
+// TRAILER MODAL
+// ═══════════════════════════════════════════════════
+function openTrailer(id) {
+  const m = MOVIES.find(x=>x.id===id);
+  if(!m) return;
+  document.getElementById('modalTrailerPoster').textContent = m.emoji;
+  document.getElementById('modalTrailerTitle').textContent = m.title;
+  document.getElementById('modalTrailerMeta').textContent = `${m.year} • ${m.genre} • ${formatDur(m.duration)}`;
+  document.getElementById('trailerModal').classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  if(!email || !pass) { errEl.classList.add('show'); errEl.textContent = 'Please fill in all fields'; return; }
+  // Simulate auth
+  state.user = { name: email.split('@')[0].replace('.', ' ').split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' '), email, initials: email.slice(0,2).toUpperCase() };
+  errEl.classList.remove('show');
+  updateNavAuth();
+  showPage('home');
+  showToast('success','Welcome Back!',`Hello, ${state.user.name}! Enjoy watching.`);
+}
+
+function doSocialLogin(provider) {
+  state.user = { name:'Alex Johnson', email:'alex@example.com', initials:'AJ' };
+  updateNavAuth();
+  showPage('home');
+  showToast('success',`Signed in with ${provider}`,`Welcome, ${state.user.name}!`);
+}
+
+function doRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPassword').value;
+  const confirm = document.getElementById('regConfirm').value;
+  const terms = document.getElementById('regTerms').checked;
+  const errEl = document.getElementById('regError');
+  if(!name||!email||!pass||!confirm) { errEl.classList.add('show'); errEl.textContent='Please fill in all fields'; return; }
+  if(pass !== confirm) { errEl.classList.add('show'); errEl.textContent='Passwords do not match'; return; }
+  if(!terms) { errEl.classList.add('show'); errEl.textContent='Please accept terms and conditions'; return; }
+  if(pass.length < 8) { errEl.classList.add('show'); errEl.textContent='Password must be at least 8 characters'; return; }
+  errEl.classList.remove('show');
+  state.user = { name, email, initials: name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() };
+  updateNavAuth();
+  showPage('home');
+  showToast('success','Account Created!',`Welcome to CineMax, ${name}!`);
+}
+
+function logout() {
+  state.user = null;
+  updateNavAuth();
+  toggleDropdown('userDrop');
+  showPage('home');
+  showToast('info','Signed Out','Come back soon!');
+}
+
+function updateNavAuth() {
+  const guestEls = document.getElementById('navUserArea');
+  const userEl = document.getElementById('navLoggedIn');
+  if(state.user) {
+    guestEls.classList.add('hidden');
+    userEl.classList.remove('hidden');
+    document.getElementById('userAvatarBtn').textContent = state.user.initials;
+    document.getElementById('ddUserName').textContent = state.user.name;
+    document.getElementById('ddUserEmail').textContent = state.user.email;
+    document.getElementById('adminName').textContent = state.user.name;
+  } else {
+    guestEls.classList.remove('hidden');
+    userEl.classList.add('hidden');
+  }
+}
+
+function checkStrength(val) {
+  let score = 0;
+  if(val.length >= 8) score++;
+  if(/[A-Z]/.test(val)) score++;
+  if(/[0-9]/.test(val)) score++;
+  if(/[^A-Za-z0-9]/.test(val)) score++;
+  ['s1','s2','s3','s4'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    el.className = 'strength-segment';
+    if(i < score) el.classList.add(score<=1?'weak':score<=2?'medium':'strong');
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════════════
+function initProfile() {
+  if(!state.user) { showPage('login'); return; }
+  document.getElementById('profileNameLg').textContent = state.user.name;
+  document.getElementById('profileEmailLg').textContent = state.user.email;
+  document.getElementById('profileAvatarLg').textContent = state.user.initials;
+  document.getElementById('profileMoviesWatched').textContent = state.history.length;
+  document.getElementById('profileWishlistCount').textContent = state.wishlist.length;
+  buildProfileContinue();
+  buildProfileWishlist();
+  buildProfileHistory();
+}
+
+function buildProfileContinue() {
+  const el = document.getElementById('profileContinueGrid');
+  if(!el) return;
+  el.innerHTML = '';
+  state.continueWatching.forEach(cw => {
+    const m = MOVIES.find(x=>x.id===cw.id);
+    if(!m) return;
+    const div = document.createElement('div');
+    div.className = 'continue-watching-card';
+    div.onclick = () => playMovie(m.id);
+    div.innerHTML = `
+      <div class="continue-thumb">
+        <div style="font-size:3rem">${m.emoji}</div>
+        <div class="continue-progress"><div class="continue-progress-fill" style="width:${cw.progress}%"></div></div>
+        <div class="continue-play"><div style="width:44px;height:44px;border-radius:50%;background:var(--c-accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:white">▶</div></div>
+      </div>
+      <div class="continue-info">
+        <div class="continue-title">${m.title}</div>
+        <div class="continue-meta">${cw.progress}% • ${formatDur(m.duration)}</div>
+      </div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function buildProfileWishlist() {
+  const el = document.getElementById('profileWishlistGrid');
+  if(!el) return;
+  el.innerHTML = '';
+  if(state.wishlist.length===0) { el.innerHTML='<p style="color:var(--c-text2)">No movies in your wishlist yet.</p>'; return; }
+  state.wishlist.forEach(id => {
+    const m = MOVIES.find(x=>x.id===id);
+    if(m) el.appendChild(buildMovieCard(m));
+  });
+}
+
+function buildProfileHistory() {
+  const el = document.getElementById('profileHistoryList');
+  if(!el) return;
+  el.innerHTML = '';
+  state.history.forEach((id,i) => {
+    const m = MOVIES.find(x=>x.id===id);
+    if(!m) return;
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:center;gap:1rem;padding:12px 0;border-bottom:1px solid var(--c-border);cursor:pointer';
+    div.onclick = () => playMovie(m.id);
+    div.innerHTML = `
+      <div style="font-size:2rem;flex-shrink:0">${m.emoji}</div>
+      <div style="flex:1">
+        <div style="font-weight:600;margin-bottom:2px">${m.title}</div>
+        <div style="font-size:0.8rem;color:var(--c-text3)">${m.genre} • ${m.year} • Watched ${i===0?'today':i===1?'yesterday':i+' days ago'}</div>
+      </div>
+      <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.8rem" onclick="event.stopPropagation();playMovie(${m.id})">▶ Play Again</button>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function switchProfileTab(tab) {
+  document.querySelectorAll('.profile-tab').forEach((t,i) => t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const tabs = ['watching','wishlist','history','settings'];
+  const idx = tabs.indexOf(tab);
+  if(idx>=0) {
+    document.querySelectorAll('.profile-tab')[idx]?.classList.add('active');
+    document.getElementById('tab-'+tab)?.classList.add('active');
+  }
+}
+
+function showProfile(tab) {
+  showPage('profile');
+  switchProfileTab(tab);
+}
+
+function saveSettings() {
+  showToast('success','Settings Saved','Your preferences have been updated');
+}
+
+// ═══════════════════════════════════════════════════
+// WISHLIST
+// ═══════════════════════════════════════════════════
+function toggleWishlist(id, btn) {
+  if(!state.user) { showPage('login'); return; }
+  const idx = state.wishlist.indexOf(id);
+  if(idx > -1) {
+    state.wishlist.splice(idx,1);
+    if(btn) btn.textContent = '♡ Add to Wishlist';
+    showToast('info','Removed','Removed from wishlist');
+  } else {
+    state.wishlist.push(id);
+    if(btn) btn.textContent = '♥ In Wishlist';
+    showToast('success','Added!','Added to your wishlist');
+  }
+  document.getElementById('profileWishlistCount').textContent = state.wishlist.length;
+}
+
+function addToWishlist(id) { toggleWishlist(id, null); }
+
+// ═══════════════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════════════
+function initAdmin() {
+  if(!state.user) { showPage('login'); return; }
+  document.getElementById('adminTotalMovies').textContent = state.movies.length;
+  buildAdminMoviesTable();
+  buildAdminUsersTable();
+}
+
+function switchAdminPane(pane) {
+  document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pane-'+pane)?.classList.add('active');
+  document.querySelectorAll('.admin-nav-item').forEach(i=>i.classList.remove('active'));
+  document.querySelector(`.admin-nav-item[data-pane="${pane}"]`)?.classList.add('active');
+  document.getElementById('adminTopbarTitle').textContent = pane.toUpperCase().replace('-',' ');
+}
+
+function buildAdminMoviesTable() {
+  const tbody = document.getElementById('adminMoviesTable');
+  if(!tbody) return;
+  tbody.innerHTML = '';
+  state.movies.slice(0,15).forEach(m => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="table-movie-cell"><div class="table-poster">${m.emoji}</div><div><div style="font-weight:600;color:var(--c-text)">${m.title}</div><div style="font-size:0.75rem">${m.type}</div></div></div></td>
+      <td>${m.genre}</td>
+      <td>${m.year}</td>
+      <td><span style="color:var(--c-gold)">⭐ ${m.rating}</span></td>
+      <td>${m.views}</td>
+      <td><span class="badge badge-green">Active</span></td>
+      <td><div class="table-actions">
+        <button class="table-action-btn edit" onclick="showToast('info','Edit','Editing ${m.title.replace(/'/g,"\\'")}')">✏</button>
+        <button class="table-action-btn delete" onclick="adminDeleteMovie(${m.id})">🗑</button>
+      </div></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildAdminUsersTable() {
+  const tbody = document.getElementById('adminUsersTable');
+  if(!tbody) return;
+  tbody.innerHTML = '';
+  SAMPLE_USERS.forEach(u => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--c-text);font-weight:500">${u.name}</td>
+      <td>${u.email}</td>
+      <td>${u.joined}</td>
+      <td><span class="badge ${u.plan==='Premium'?'badge-gold':u.plan==='Basic'?'badge-blue':'badge-green'}">${u.plan}</span></td>
+      <td><span class="badge ${u.status==='Active'?'badge-green':'badge-red'}">${u.status}</span></td>
+      <td><div class="table-actions">
+        <button class="table-action-btn edit" onclick="showToast('info','Edit User','Opening user editor')">✏</button>
+        <button class="table-action-btn delete" onclick="showToast('warning','User Suspended','User has been suspended')">🚫</button>
+      </div></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function adminAddMovie() {
+  const title = document.getElementById('newMovieTitle').value.trim();
+  const year = parseInt(document.getElementById('newMovieYear').value) || 2025;
+  const genre = document.getElementById('newMovieGenre').value;
+  const type = document.getElementById('newMovieType').value;
+  const dur = parseInt(document.getElementById('newMovieDuration').value) || 120;
+  const rating = parseFloat(document.getElementById('newMovieRating').value) || 7.5;
+  const desc = document.getElementById('newMovieDesc').value.trim();
+  const emoji = document.getElementById('newMovieEmoji').value.trim() || '🎬';
+  if(!title) { showToast('warning','Missing','Please enter a movie title'); return; }
+  const newMovie = { id:Date.now(), title, subtitle:'', emoji, genre, type, year, duration:dur, rating, views:'0', quality:'1080p', desc:desc||'No description available.', cast:[], director:'Unknown', trending:false, topRated:false, featured:false };
+  state.movies.unshift(newMovie);
+  document.getElementById('adminTotalMovies').textContent = state.movies.length;
+  switchAdminPane('movies');
+  buildAdminMoviesTable();
+  showToast('success','Movie Added!',`"${title}" has been added to the library`);
+  ['newMovieTitle','newMovieDesc','newMovieDuration','newMovieRating'].forEach(id => document.getElementById(id).value = '');
+}
+
+function adminDeleteMovie(id) {
+  const m = state.movies.find(x=>x.id===id);
+  state.movies = state.movies.filter(x=>x.id!==id);
+  document.getElementById('adminTotalMovies').textContent = state.movies.length;
+  buildAdminMoviesTable();
+  showToast('warning','Deleted',`"${m?.title}" removed from library`);
+}
+
+// ═══════════════════════════════════════════════════
+// SLIDER NAV
+// ═══════════════════════════════════════════════════
+const sliders = { trending:'trendingRow', newArrivals:'newArrivalsRow' };
+function slide(key, dir) {
+  const el = document.getElementById(sliders[key]);
+  if(!el) return;
+  el.scrollBy({ left: dir * 800, behavior:'smooth' });
+}
+
+// ═══════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════
+function toggleTheme() {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = state.theme;
+  const icon = document.getElementById('themeIcon');
+  if(state.theme === 'light') {
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+  } else {
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  }
+  showToast('info', state.theme==='dark'?'Dark Mode':'Light Mode', 'Theme switched successfully');
+}
+
+// ═══════════════════════════════════════════════════
+// LANGUAGE
+// ═══════════════════════════════════════════════════
+function setLang(lang) {
+  state.lang = lang;
+  document.getElementById('langMenuBtn').childNodes[0].textContent = `🌐 ${lang.toUpperCase()}`;
+  toggleDropdown('langDrop');
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'));
+  document.querySelector(`.lang-opt[onclick*="'${lang}'"]`)?.classList.add('active');
+  showToast('info','Language Changed',`Language set to ${lang.toUpperCase()}`);
+}
+
+// ═══════════════════════════════════════════════════
+// DROPDOWNS
+// ═══════════════════════════════════════════════════
+function toggleDropdown(id) {
+  const el = document.getElementById(id);
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.user-dropdown,.quality-dropdown,.lang-dropdown').forEach(d=>d.classList.remove('open'));
+  if(!wasOpen) el.classList.add('open');
+}
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('#userDrop') && !e.target.closest('#userAvatarBtn')) {
+    document.getElementById('userDrop')?.classList.remove('open');
+  }
+  if(!e.target.closest('.quality-menu') && !e.target.closest('.quality-btn')) {
+    document.querySelectorAll('.quality-dropdown').forEach(d=>d.classList.remove('open'));
+  }
+  if(!e.target.closest('#langMenuBtn')) {
+    document.getElementById('langDrop')?.classList.remove('open');
+  }
+});
+
+// ═══════════════════════════════════════════════════
+// TOAST NOTIFICATIONS
+// ═══════════════════════════════════════════════════
+function showToast(type, title, msg, duration=4000) {
+  const icons = { success:'✓', error:'✕', info:'ℹ', warning:'⚠' };
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span class="toast-icon">${icons[type]||'ℹ'}</span><div class="toast-content"><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('removing');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// ═══════════════════════════════════════════════════
+// MOBILE NAV
+// ═══════════════════════════════════════════════════
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+function closeMobileNav(e) {
+  if(e.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+// ═══════════════════════════════════════════════════
+// NAV SCROLL
+// ═══════════════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ═══════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════
+function formatDur(mins) {
+  const h = Math.floor(mins/60), m = mins%60;
+  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+function formatTime(secs) {
+  const h = Math.floor(secs/3600), m = Math.floor((secs%3600)/60), s = Math.floor(secs%60);
+  if(h>0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// ═══════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if(state.currentPage === 'player') {
+    if(e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
+      e.preventDefault();
+      if(state.playing) { clearInterval(state.playTimer); state.playing=false; document.getElementById('playPauseBtn').textContent='▶'; }
+      else simulatePlay();
+    }
+    if(e.key === 'ArrowLeft') skipBack();
+    if(e.key === 'ArrowRight') skipForward();
+    if(e.key === 'f' || e.key === 'F') toggleFullscreen();
+  }
+  if(e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    showPage('search');
+    document.getElementById('searchInput')?.focus();
+  }
+});
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+(function init() {
+  initHome();
+  // Welcome toast
+  setTimeout(() => showToast('info','Welcome to CineMax','Stream unlimited movies & shows in 4K'), 800);
+  // Demo: auto-login as demo user for showcase
+  // Uncomment to auto-login:
+  // state.user = { name:'Demo User', email:'demo@cinemax.com', initials:'DU' };
+  // updateNavAuth();
+})();
+</script>
+</body>
+</html>
